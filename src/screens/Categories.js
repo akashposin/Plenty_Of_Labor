@@ -1,7 +1,7 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import { theme } from '../constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {ScrollView, StyleSheet, Text} from 'react-native';
+import {theme} from '../constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   ButtonComponent,
   Card,
@@ -14,14 +14,14 @@ import {
 import Entypo from 'react-native-vector-icons/Entypo';
 import IonIcons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { moderateScale } from 'react-native-size-matters';
+import {moderateScale} from 'react-native-size-matters';
 
-const Categories = ({ navigation }) => {
+const Categories = ({navigation}) => {
   const [text, setText] = React.useState('');
 
   const renderHeader = () => {
     return (
-      <HeaderComponent style={{ height: theme.Sizes.height / 8.5 }}>
+      <HeaderComponent style={{height: theme.Sizes.height / 8.5}}>
         <Container flex={false} row center>
           <ButtonComponent
             style={{
@@ -32,7 +32,7 @@ const Categories = ({ navigation }) => {
             // onPress
           >
             <MaterialIcons
-              name='keyboard-arrow-left'
+              name="keyboard-arrow-left"
               size={moderateScale(24)}
               color={theme.Colors.white}
             />
@@ -43,17 +43,19 @@ const Categories = ({ navigation }) => {
               ...theme.Fonts.fontSemiBold,
               fontSize: theme.Sizes.F14,
               color: theme.Colors.white,
-            }}
-          >
+            }}>
             Cut grass
           </Text>
         </Container>
-        <Container middle>
+        <Container
+          flex={false}
+          middle
+          style={{height: theme.Sizes.height / 16}}>
           <SearchBarComponent
             placeholderTextColor={theme.Colors.gray}
-            placeholder='Enter address (Where do you want services)'
+            placeholder="Enter address (Where do you want services)"
             value={text}
-            onChangeText={(value) => setText(value)}
+            onChangeText={value => setText(value)}
           />
         </Container>
       </HeaderComponent>
@@ -62,7 +64,7 @@ const Categories = ({ navigation }) => {
 
   const renderBody = () => {
     return (
-      <Container color='gray2' center middle>
+      <Container color="gray2" center middle>
         <Card
           style={{
             width: theme.Sizes.width / 1.2,
@@ -70,11 +72,10 @@ const Categories = ({ navigation }) => {
             position: 'absolute',
             top: moderateScale(350),
             borderRadius: theme.Sizes.S10 / 1.5,
-          }}
-        >
-          <Container flex={false} style={{ top: moderateScale(35) }}>
+          }}>
+          <Container flex={false} style={{top: moderateScale(35)}}>
             {/* horizontal line */}
-            <HorizontalLine style={{ marginBottom: theme.Sizes.S10 / 2 }} />
+            <HorizontalLine style={{marginBottom: theme.Sizes.S10 / 2}} />
 
             <Container flex={false} row>
               <Container>
@@ -83,12 +84,11 @@ const Categories = ({ navigation }) => {
                   style={{
                     ...theme.Fonts.fontSemiBold,
                     color: theme.Colors.gray,
-                  }}
-                >
+                  }}>
                   Wayne
                 </Text>
                 <Entypo
-                  name='star'
+                  name="star"
                   color={theme.Colors.orange}
                   size={moderateScale(20)}
                 />
@@ -100,22 +100,19 @@ const Categories = ({ navigation }) => {
                   style={{
                     overflow: 'hidden',
                     borderRadius: theme.Sizes.radius / 5,
-                  }}
-                >
+                  }}>
                   <ButtonComponent
                     style={{
                       height: theme.Sizes.height / 30,
                       width: theme.Sizes.width / 4.5,
-                    }}
-                  >
+                    }}>
                     <Text
                       style={{
                         ...theme.Fonts.fontSemiBold,
                         color: theme.Colors.white,
                         letterSpacing: 0,
                         textAlign: 'center',
-                      }}
-                    >
+                      }}>
                       View Details
                     </Text>
                   </ButtonComponent>

@@ -10,11 +10,11 @@ const TextInputComponent = props => {
 
   return (
     <TextInput
-      {...props}
       ref={refs}
       blurOnSubmit={false}
       style={inputStyles}
-      underlineColorAndroid="transparent">
+      underlineColorAndroid="transparent"
+      {...props}>
       {props.children}
     </TextInput>
   );

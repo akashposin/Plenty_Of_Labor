@@ -1,0 +1,258 @@
+{
+	"info": {
+		"_postman_id": "8411e0cd-3aba-4fba-9644-599a63f03893",
+		"name": "Planet of Labors",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Localhost",
+			"item": [
+				{
+					"name": "Logged In user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone_number",
+									"value": "335345",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "sam11@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "sam12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/user-logged-in",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"user-logged-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "ponting@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "jhon",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/save-user",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"save-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Service Providers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "keyword",
+									"value": "salm",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/search-service-providers?keyword=Cut Grass",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"search-service-providers"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "Cut Grass"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Online",
+			"item": [
+				{
+					"name": "Logged In user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "phone_number",
+									"value": "335345",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "sam11@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "sam12345",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://pol.aisoftwares.co.in/user-logged-in",
+							"protocol": "https",
+							"host": [
+								"pol",
+								"aisoftwares",
+								"co",
+								"in"
+							],
+							"path": [
+								"user-logged-in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "ponting@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "jhon",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://pol.aisoftwares.co.in/save-user",
+							"protocol": "https",
+							"host": [
+								"pol",
+								"aisoftwares",
+								"co",
+								"in"
+							],
+							"path": [
+								"save-user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Service Providers",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "keyword",
+									"value": "salm",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "https://pol.aisoftwares.co.in/search-service-providers?keyword=Cut Grass",
+							"protocol": "https",
+							"host": [
+								"pol",
+								"aisoftwares",
+								"co",
+								"in"
+							],
+							"path": [
+								"search-service-providers"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "Cut Grass"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
