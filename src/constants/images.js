@@ -6,6 +6,7 @@ const home = require('../../assets/images/home.png');
 const building = require('../../assets/images/building.png');
 const calendar = require('../../assets/images/calendar.png');
 const location_pin = require('../../assets/images/location_pin.png');
+const logo = require('../../assets/images/logo.png');
 
 export {
   smart_phone,
@@ -16,4 +17,5 @@ export {
   building,
   calendar,
   location_pin,
+  logo,
 };

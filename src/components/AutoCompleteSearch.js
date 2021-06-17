@@ -12,8 +12,9 @@ import {
 
 //import Autocomplete component
 import Autocomplete from 'react-native-autocomplete-input';
+import axios from 'axios';
 
-const AutoCompleteSearch = () => {
+const AutoCompleteSearch = ({navigation}) => {
   // Used to set Main JSON Data.
   const [MainJSON, setMainJSON] = useState([]);
 
@@ -24,24 +25,38 @@ const AutoCompleteSearch = () => {
   const [selectedItem, setselectedItem] = useState({});
 
   useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos/')
-      .then(res => res.json())
-      .then(json => {
-        setMainJSON(json);
+    // fetch('https://jsonplaceholder.typicode.com/todos/')
+    //   .then(res => res.json())
+    //   .then(json => {
+    //     console.log(json);
+    //     const getData = json.map(result => result);
+    //     setMainJSON(getData);
+    //   })
+    //   .catch(e => {
+    //     alert(e);
+    //   });
+
+    axios
+      .get(
+        'https://pol.aisoftwares.co.in/search-service-providers?keyword=Cut Grass',
+      )
+      .then(res => {
+        // console.log(res.data.data);
+        const getData = res.data.data.map(value => value);
+        // console.log(getData);
+        setMainJSON(getData);
       })
-      .catch(e => {
-        alert(e);
-      });
+      .catch(e => console.log(e));
   }, []);
+
+  // console.log(MainJSON);
 
   const SearchDataFromJSON = query => {
     if (query) {
       //Making the Search as Case Insensitive.
       const regex = new RegExp(`${query.trim()}`, 'i');
-      const result = MainJSON.filter(data => data.title.search(regex) >= 0).map(
-        ({id, title, completed}) => {
-          return [title];
-        },
+      const result = MainJSON.filter(
+        data => data.category_name.search(regex) >= 0,
       );
       setFilterData(result);
     } else {
@@ -56,9 +71,11 @@ const AutoCompleteSearch = () => {
         autoCorrect={false}
         containerStyle={styles.AutocompleteStyle}
         data={FilterData}
-        defaultValue={
-          JSON.stringify(selectedItem) === '{}' ? '' : selectedItem.title
-        }
+        // defaultValue={
+        //   JSON.stringify(selectedItem) === '{}'
+        //     ? ''
+        //     : selectedItem.category_name
+        // }
         // keyExtractor={(item, i) => i.toString()}
         onChangeText={text => SearchDataFromJSON(text)}
         placeholder="Type The Search Keyword..."
@@ -68,24 +85,21 @@ const AutoCompleteSearch = () => {
           renderItem: ({item}) => {
             return (
               <TouchableOpacity
-                onPress={() => {
-                  setselectedItem(item);
-                  setFilterData([]);
-                }}>
-                <Text style={styles.SearchBoxTextItem}>{item.title}</Text>
+                onPress={
+                  () => navigation.navigate('Home')
+                  //   {
+                  //   setselectedItem(item);
+                  //   setFilterData([]);
+                  // }
+                }>
+                <Text style={styles.SearchBoxTextItem}>
+                  {item.category_name}
+                </Text>
               </TouchableOpacity>
             );
           },
         }}
       />
-
-      <View style={styles.selectedTextContainer}>
-        {
-          <Text style={styles.selectedTextStyle}>
-            {JSON.stringify(selectedItem)}
-          </Text>
-        }
-      </View>
     </View>
   );
 };
@@ -109,14 +123,6 @@ const styles = StyleSheet.create({
     margin: 5,
     fontSize: 16,
     paddingTop: 4,
-  },
-  selectedTextContainer: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  selectedTextStyle: {
-    textAlign: 'center',
-    fontSize: 18,
   },
 });
 export default AutoCompleteSearch;

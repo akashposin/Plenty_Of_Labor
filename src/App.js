@@ -7,8 +7,8 @@ import SplashScreen from 'react-native-splash-screen';
 
 import Tabs from './navigation/tabs';
 import Login from './screens/Login';
-import Looking from './screens/Looking';
-import VerifyOTP from './screens/VerifyOTP';
+import Start from './screens/Start';
+import Register from './screens/Register';
 import SelectAddress from './screens/SelectAddress';
 import AddNewAddress from './screens/AddNewAddress';
 import SelectTimeSlot from './screens/SelectTimeSlot';
@@ -35,6 +35,7 @@ import Bookings from './screens/Bookings';
 import Profile from './screens/Profile';
 import {theme} from './constants';
 import {StatusBar} from 'react-native';
+import ForgotPassword from './screens/ForgotPassword';
 
 const Stack = createStackNavigator();
 
@@ -55,8 +56,9 @@ const App = () => {
           <Stack.Screen name="Temporary" component={Temporary} />
           <Stack.Screen name="Login" component={Login} />
           <Stack.Screen name="Home" component={Tabs} />
-          <Stack.Screen name="Looking" component={Looking} />
-          <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+          <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
+          <Stack.Screen name="Start" component={Start} />
+          <Stack.Screen name="Register" component={Register} />
           <Stack.Screen name="SelectAddress" component={SelectAddress} />
           <Stack.Screen name="AddNewAddress" component={AddNewAddress} />
           <Stack.Screen name="SelectTimeSlot" component={SelectTimeSlot} />

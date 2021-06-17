@@ -1,17 +1,20 @@
 import React from 'react';
-import {ScrollView, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {theme} from '../constants';
+import {Image, Keyboard, ScrollView, StyleSheet, Text} from 'react-native';
+import {images, theme} from '../constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   ButtonComponent,
   Container,
+  HeaderComponent,
   KeyBoardAvoidingViewComponent,
   TextInputComponent,
 } from '../components';
+import auth from '@react-native-firebase/auth';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {moderateScale} from 'react-native-size-matters';
 import axios from 'axios';
 
-const Login = ({navigation}) => {
+const Register = ({route, navigation}) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
@@ -23,6 +26,7 @@ const Login = ({navigation}) => {
     setPassword(inputText);
   };
 
+  // header
   const renderHeader = () => {
     return (
       <Container
@@ -53,7 +57,8 @@ const Login = ({navigation}) => {
     );
   };
 
-  const renderTextInput = () => {
+  //   inputs
+  const renderTextInputs = () => {
     return (
       <Container
         flex={false}
@@ -88,91 +93,71 @@ const Login = ({navigation}) => {
     );
   };
 
-  const loginUser = async () => {
+  const registerUser = async () => {
     const data = {email: email, password: password};
     console.log(data);
-    const result = await axios.post(
-      'https://pol.aisoftwares.co.in/user-logged-in',
-      data,
-    );
-    console.log(result);
+    // const result = await axios.post(
+    //   'https://pol.aisoftwares.co.in/user-logged-in',
+    //   data,
+    // );
+    // console.log(result);
   };
 
+  //   Button
   const renderButton = () => {
     return (
-      <Container>
+      <Container style={{marginHorizontal: theme.Sizes.S14 * 5}}>
         <Container
           flex={false}
           style={{
             overflow: 'hidden',
-            marginHorizontal: theme.Sizes.S14 * 5,
             borderRadius: theme.Sizes.radius,
             marginTop: theme.Sizes.S14,
           }}>
           <ButtonComponent
             style={{height: theme.Sizes.height / 14}}
-            onPress={loginUser}>
+            onPress={registerUser}>
             <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
-              Login
+              Register
             </Text>
           </ButtonComponent>
         </Container>
+      </Container>
+    );
+  };
 
-        <Container row center middle style={{marginTop: theme.Sizes.S14}}>
-          {/* <TouchableOpacity
-            activeOpacity={0.6}
-            style={{marginRight: theme.Sizes.S14 * 2}}>
-            <Text
-              style={{
-                ...theme.Fonts.fontBold,
-                color: theme.Colors.blue,
-                letterSpacing: moderateScale(0.5),
-                fontSize: theme.Sizes.F14,
-              }}>
-              Register
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity activeOpacity={0.6}>
-            <Text
-              style={{
-                ...theme.Fonts.fontBold,
-                color: theme.Colors.blue,
-                letterSpacing: moderateScale(0.5),
-                fontSize: theme.Sizes.F14,
-              }}>
-              Forgot Password?
-            </Text>
-          </TouchableOpacity> */}
-          <ButtonComponent
+  // Login Button
+  const renderLoginButton = () => {
+    return (
+      <Container
+        row
+        style={{
+          marginTop: theme.Sizes.S14,
+          marginHorizontal: theme.Sizes.S14 * 6,
+        }}>
+        <Text
+          style={{
+            ...theme.Fonts.fontBold,
+            color: theme.Colors.black,
+          }}>
+          Already have an account?{' '}
+        </Text>
+        <ButtonComponent
+          style={{
+            backgroundColor: theme.Colors.white,
+            marginRight: theme.Sizes.S14 * 3,
+          }}
+          onPress={() => navigation.navigate('Login')}>
+          <Text
             style={{
-              backgroundColor: theme.Colors.white,
-              marginRight: theme.Sizes.S14 * 3,
-            }}
-            onPress={() => navigation.navigate('Register')}>
-            <Text
-              style={{
-                ...theme.Fonts.fontBold,
-                color: theme.Colors.blue,
-                letterSpacing: moderateScale(0.5),
-                fontSize: theme.Sizes.F14,
-              }}>
-              Register
-            </Text>
-          </ButtonComponent>
-          <ButtonComponent
-            style={{backgroundColor: theme.Colors.white}}
-            onPress={() => navigation.navigate('ForgotPassword')}>
-            <Text
-              style={{
-                ...theme.Fonts.fontBold,
-                color: theme.Colors.blue,
-                letterSpacing: moderateScale(0.5),
-                fontSize: theme.Sizes.F14,
-              }}>
-              Forgot Password?
-            </Text>
-          </ButtonComponent>
-        </Container>
+              ...theme.Fonts.fontBold,
+              color: theme.Colors.blue,
+              letterSpacing: moderateScale(0.5),
+              fontSize: theme.Sizes.F14,
+            }}>
+            Login
+          </Text>
+        </ButtonComponent>
       </Container>
     );
   };
@@ -181,13 +166,10 @@ const Login = ({navigation}) => {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <KeyBoardAvoidingViewComponent>
-          {/* <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}> */}
-          {/* <View> */}
           {renderHeader()}
-          {renderTextInput()}
+          {renderTextInputs()}
           {renderButton()}
-          {/* </View> */}
-          {/* </TouchableWithoutFeedback> */}
+          {renderLoginButton()}
         </KeyBoardAvoidingViewComponent>
       </ScrollView>
     </SafeAreaView>
@@ -201,4 +183,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Login;
+export default Register;

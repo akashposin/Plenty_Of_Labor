@@ -78,8 +78,8 @@ const Temporary = ({navigation}) => {
                 marginVertical: theme.Sizes.S10,
                 marginHorizontal: theme.Sizes.S14,
               }}
-              onPress={() => navigation.navigate('VerifyOTP')}>
-              VerifyOTP
+              onPress={() => navigation.navigate('Register')}>
+              Register
             </ButtonComponent>
             <ButtonComponent
               style={{
@@ -233,8 +233,8 @@ const Temporary = ({navigation}) => {
                 marginVertical: theme.Sizes.S10,
                 marginHorizontal: theme.Sizes.S14,
               }}
-              onPress={() => navigation.navigate('Looking')}>
-              Looking
+              onPress={() => navigation.navigate('Start')}>
+              Start
             </ButtonComponent>
           </Container>
         </Container>

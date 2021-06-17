@@ -4,7 +4,17 @@ import {moderateScale} from 'react-native-size-matters';
 import {theme} from '../constants';
 
 const TextInputComponent = props => {
-  const {style, refs} = props;
+  const {
+    style,
+    refs,
+    onChangeText,
+    value,
+    keyboardType,
+    placeholder,
+    placeholderTextColor,
+    onSubmitEditing,
+    secureTextEntry,
+  } = props;
 
   const inputStyles = [styles.input, style];
 
@@ -14,7 +24,13 @@ const TextInputComponent = props => {
       blurOnSubmit={false}
       style={inputStyles}
       underlineColorAndroid="transparent"
-      {...props}>
+      onChangeText={onChangeText}
+      value={value}
+      keyboardType={keyboardType}
+      placeholder={placeholder}
+      placeholderTextColor={placeholderTextColor}
+      onSubmitEditing={onSubmitEditing}
+      secureTextEntry={secureTextEntry}>
       {props.children}
     </TextInput>
   );
@@ -23,7 +39,7 @@ const TextInputComponent = props => {
 const styles = StyleSheet.create({
   input: {
     ...theme.Fonts.fontRegular,
-    height: theme.Sizes.height / 38,
+    height: theme.Sizes.height / 16,
     borderWidth: moderateScale(1),
     borderColor: theme.Colors.black,
     marginVertical: theme.Sizes.S10,

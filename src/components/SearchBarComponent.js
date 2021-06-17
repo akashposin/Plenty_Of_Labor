@@ -16,16 +16,19 @@ const SearchBarComponent = props => {
       style={{
         borderRadius: theme.Sizes.radius,
         marginHorizontal: theme.Sizes.S10 * 2,
+        height: theme.Sizes.height / 16,
       }}>
-      <TextInputComponent
-        style={{
-          borderWidth: 0,
-          backgroundColor: 'transparent',
-          flex: 0.9,
-        }}
-        {...props}
-      />
-      <Container flex={false}>
+      <Container>
+        <TextInputComponent
+          style={{
+            borderWidth: 0,
+            backgroundColor: 'transparent',
+            paddingLeft: theme.Sizes.S14,
+          }}
+          {...props}
+        />
+      </Container>
+      <Container flex={false} style={{marginRight: theme.Sizes.S10}}>
         <IonIcons
           name="search"
           size={moderateScale(24)}

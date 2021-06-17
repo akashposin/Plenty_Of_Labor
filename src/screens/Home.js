@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   FlatList,
   Text,
+  StatusBar,
 } from 'react-native';
 import {theme} from '../constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -113,13 +114,13 @@ const Home = ({navigation}) => {
     );
   };
 
-  // const renderTest = () => {
-  //   return (
-  //     <Container>
-  //       <AutoCompleteSearch />
-  //     </Container>
-  //   );
-  // };
+  const renderTest = () => {
+    return (
+      <Container>
+        <AutoCompleteSearch />
+      </Container>
+    );
+  };
 
   const renderBody = () => {
     return (
@@ -136,11 +137,14 @@ const Home = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      {renderHeader()}
-      {renderBody()}
-      {/* {renderTest()} */}
-    </SafeAreaView>
+    <>
+      <StatusBar hidden={false} />
+      <SafeAreaView style={styles.container}>
+        {/* {renderHeader()} */}
+        {/* {renderBody()} */}
+        {renderTest()}
+      </SafeAreaView>
+    </>
   );
 };
 
