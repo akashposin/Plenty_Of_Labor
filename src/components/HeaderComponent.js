@@ -8,7 +8,7 @@ const HeaderComponent = props => {
       flex={false}
       color="blue2"
       style={{
-        height: theme.Sizes.height / 14,
+        height: theme.Sizes.height / 13,
       }}
       {...props}>
       {props.children}

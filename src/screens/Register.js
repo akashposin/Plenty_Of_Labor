@@ -1,16 +1,8 @@
 import React from 'react';
-import {Image, Keyboard, ScrollView, StyleSheet, Text} from 'react-native';
-import {images, theme} from '../constants';
+import {StyleSheet, Text} from 'react-native';
+import {theme} from '../constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {
-  ButtonComponent,
-  Container,
-  HeaderComponent,
-  KeyBoardAvoidingViewComponent,
-  TextInputComponent,
-} from '../components';
-import auth from '@react-native-firebase/auth';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {ButtonComponent, Container, TextInputComponent} from '../components';
 import {moderateScale} from 'react-native-size-matters';
 import axios from 'axios';
 
@@ -24,37 +16,6 @@ const Register = ({route, navigation}) => {
 
   const passwordInputHandler = inputText => {
     setPassword(inputText);
-  };
-
-  // header
-  const renderHeader = () => {
-    return (
-      <Container
-        flex={false}
-        middle
-        center
-        style={{
-          marginVertical: theme.Sizes.S14 * 5,
-        }}>
-        <Text
-          style={{
-            ...theme.Fonts.fontBold,
-            fontSize: moderateScale(80),
-            color: theme.Colors.gray,
-          }}>
-          POL
-        </Text>
-        <Text
-          style={{
-            ...theme.Fonts.fontBold,
-            fontSize: theme.Sizes.F16,
-            color: theme.Colors.gray,
-            marginTop: -theme.Sizes.S14,
-          }}>
-          PLENTY OF LABOR
-        </Text>
-      </Container>
-    );
   };
 
   //   inputs
@@ -95,23 +56,26 @@ const Register = ({route, navigation}) => {
 
   const registerUser = async () => {
     const data = {email: email, password: password};
-    console.log(data);
-    // const result = await axios.post(
-    //   'https://pol.aisoftwares.co.in/user-logged-in',
-    //   data,
-    // );
-    // console.log(result);
+    const result = await axios.post(
+      'https://pol.aisoftwares.co.in/save-user',
+      data,
+    );
+    if (result.data.success === 'true') {
+      navigation.navigate('Login');
+    } else {
+      console.log('invalid email');
+    }
   };
 
   //   Button
   const renderButton = () => {
     return (
-      <Container style={{marginHorizontal: theme.Sizes.S14 * 5}}>
+      <Container flex={false} style={{marginHorizontal: theme.Sizes.S14 * 5}}>
         <Container
           flex={false}
           style={{
             overflow: 'hidden',
-            borderRadius: theme.Sizes.radius,
+            borderRadius: theme.Sizes.radius / 5,
             marginTop: theme.Sizes.S14,
           }}>
           <ButtonComponent
@@ -130,6 +94,7 @@ const Register = ({route, navigation}) => {
   const renderLoginButton = () => {
     return (
       <Container
+        flex={false}
         row
         style={{
           marginTop: theme.Sizes.S14,
@@ -164,14 +129,9 @@ const Register = ({route, navigation}) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <KeyBoardAvoidingViewComponent>
-          {renderHeader()}
-          {renderTextInputs()}
-          {renderButton()}
-          {renderLoginButton()}
-        </KeyBoardAvoidingViewComponent>
-      </ScrollView>
+      {renderTextInputs()}
+      {renderButton()}
+      {renderLoginButton()}
     </SafeAreaView>
   );
 };
@@ -180,6 +140,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.Colors.white,
+    justifyContent: 'center',
   },
 });
 

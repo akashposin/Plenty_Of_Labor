@@ -61,18 +61,14 @@ const Home = ({navigation}) => {
     return (
       <HeaderComponent>
         <Container
-          flex={false}
           middle
           style={{
             marginHorizontal: theme.Sizes.S14,
             marginTop: theme.Sizes.S10 / 2,
-            height: theme.Sizes.height / 18,
+            height: theme.Sizes.height / 6,
           }}>
-          <SearchBarComponent
-            placeholderTextColor={theme.Colors.gray}
-            placeholder="Search services..."
-            value={search}
-            onChangeText={data => searchData(data)}
+          <AutoCompleteSearch
+            onPress={() => navigation.navigate('Categories')}
           />
         </Container>
       </HeaderComponent>
@@ -92,7 +88,10 @@ const Home = ({navigation}) => {
 
   const renderDataItems = ({item}) => {
     return (
-      <Container center middle style={{marginTop: theme.Sizes.S14 * 1.3}}>
+      <Container
+        center
+        middle
+        style={{marginTop: theme.Sizes.S14 * 1.3, zIndex: 8}}>
         {/* <TouchableOpacity activeOpacity={0.8} onPress={() => {}}> */}
         <Card
           shadow
@@ -117,32 +116,32 @@ const Home = ({navigation}) => {
   const renderTest = () => {
     return (
       <Container>
-        <AutoCompleteSearch />
+        <AutoCompleteSearch onPress={() => navigation.navigate('Categories')} />
       </Container>
     );
   };
 
-  const renderBody = () => {
-    return (
-      // <ScrollView>
-      <KeyBoardAvoidingViewComponent>
-        <FlatList
-          data={filterData}
-          keyExtractor={item => item.id}
-          renderItem={renderDataItems}
-        />
-      </KeyBoardAvoidingViewComponent>
-      // </ScrollView>
-    );
-  };
+  // const renderBody = () => {
+  //   return (
+  //     // <ScrollView>
+  //     <KeyBoardAvoidingViewComponent>
+  //       <FlatList
+  //         data={filterData}
+  //         keyExtractor={item => item.id}
+  //         renderItem={renderDataItems}
+  //       />
+  //     </KeyBoardAvoidingViewComponent>
+  //     // </ScrollView>
+  //   );
+  // };
 
   return (
     <>
       <StatusBar hidden={false} />
       <SafeAreaView style={styles.container}>
-        {/* {renderHeader()} */}
+        {renderHeader()}
         {/* {renderBody()} */}
-        {renderTest()}
+        {/* {renderTest()} */}
       </SafeAreaView>
     </>
   );

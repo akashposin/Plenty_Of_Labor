@@ -76,7 +76,7 @@ const Start = ({navigation}) => {
               width: theme.Sizes.width / 1.5,
               height: theme.Sizes.height / 13,
             }}
-            onPress={() => navigation.navigate('Home')}>
+            onPress={() => navigation.navigate('Register')}>
             Register
           </ButtonComponent>
         </Container>
