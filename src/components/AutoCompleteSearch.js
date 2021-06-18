@@ -1,42 +1,26 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import Autocomplete from 'react-native-autocomplete-input';
-import IonIcons from 'react-native-vector-icons/Ionicons';
 import axios from 'axios';
-import Container from './Container';
-import {moderateScale} from 'react-native-size-matters';
 import {theme} from '../constants';
 import SearchBarComponent from './SearchBarComponent';
 
 const AutoCompleteSearch = props => {
   const [mainData, setMainData] = useState([]);
-  const [filterData, setFilterData] = useState([]);
 
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const fetchData = async () => {
+  const searchCategory = async inputText => {
     try {
       const result = await axios.get(
-        'https://pol.aisoftwares.co.in/search-service-providers?keyword=Cut Grass',
+        `https://pol.aisoftwares.co.in/search-service-providers?keyword=${inputText}`,
       );
       const getData = result.data.data.map(value => value);
-      setMainData(getData);
+      if (inputText) {
+        setMainData(getData);
+      } else {
+        setMainData([]);
+      }
     } catch (error) {
       console.log({'error message': error});
-    }
-  };
-
-  const searchData = inputText => {
-    if (inputText) {
-      const regex = new RegExp(`${inputText.trim()}`, 'i');
-      const result = mainData.filter(
-        data => data.category_name.search(regex) >= 0,
-      );
-      setFilterData(result);
-    } else {
-      setFilterData([]);
     }
   };
 
@@ -44,20 +28,14 @@ const AutoCompleteSearch = props => {
     <Autocomplete
       autoCapitalize="none"
       autoCorrect={false}
-      containerStyle={styles.AutocompleteStyle}
-      data={filterData}
-      inputContainerStyle={{
-        borderRadius: theme.Sizes.radius,
-        borderColor: 'transparent',
-      }}
-      listContainerStyle={{
-        marginHorizontal: theme.Sizes.S10 / 1.5,
-      }}
+      containerStyle={styles.container}
+      data={mainData}
+      inputContainerStyle={styles.inputText}
       renderTextInput={() => (
         <SearchBarComponent
           placeholderTextColor={theme.Colors.gray}
           placeholder="Search services..."
-          onChangeText={data => searchData(data)}
+          onChangeText={searchCategory}
         />
       )}
       flatListProps={{
@@ -66,7 +44,7 @@ const AutoCompleteSearch = props => {
         renderItem: ({item}) => {
           return (
             <TouchableOpacity onPress={props.onPress}>
-              <Text style={styles.SearchBoxTextItem}>{item.category_name}</Text>
+              <Text style={styles.dropDownText}>{item.category_name}</Text>
             </TouchableOpacity>
           );
         },
@@ -76,12 +54,17 @@ const AutoCompleteSearch = props => {
 };
 
 const styles = StyleSheet.create({
-  AutocompleteStyle: {
-    // flex: 1,
-    // marginHorizontal: theme.Sizes.s14,
-    // borderColor: 'transparent',
+  container: {
+    marginHorizontal: theme.Sizes.S14 * 2,
+    top: 50,
+    position: 'absolute',
+    zIndex: 1,
+    width: theme.Sizes.width / 1.17,
   },
-  SearchBoxTextItem: {
+  inputText: {
+    borderWidth: 0,
+  },
+  dropDownText: {
     ...theme.Fonts.fontMedium,
     margin: theme.Sizes.S10 / 3,
   },
