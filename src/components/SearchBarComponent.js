@@ -14,7 +14,7 @@ const SearchBarComponent = props => {
       middle
       center
       style={{
-        borderRadius: theme.Sizes.radius,
+        borderRadius: theme.Sizes.radius / 5,
         height: theme.Sizes.height / 16,
       }}>
       <Container>

@@ -9,15 +9,15 @@ import {
   HeaderComponent,
   KeyBoardAvoidingViewComponent,
   TextInputComponent,
+  Map,
 } from '../components';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {moderateScale} from 'react-native-size-matters';
-import MapboxGL from '@react-native-mapbox-gl/maps';
-
-MapboxGL.setAccessToken(
-  'pk.eyJ1IjoiYWxleG1haG5rZSIsImEiOiJja25oc3psc2cwbWd2MnZudzA1d2dpOW5wIn0.w7LO2v86HxcaZUPdkmFk7g',
-);
-MapboxGL.setTelemetryEnabled(false);
+import {
+  Camera,
+  UserLocation,
+  PointAnnotation,
+} from '@react-native-mapbox-gl/maps';
 
 const AddNewAddress = ({navigation}) => {
   const [houseNumber, setHouseNumber] = React.useState('');
@@ -92,12 +92,12 @@ const AddNewAddress = ({navigation}) => {
   const renderMap = () => {
     return (
       <Container>
-        <MapboxGL.MapView
+        <Map
           zoomLevel={8}
           showUserLocation={true}
           centerCoordinate={mapRegion}
           style={{flex: 1}}>
-          <MapboxGL.Camera
+          <Camera
             zoomLevel={8}
             centerCoordinate={mapRegion}
             followUserLocation={true}
@@ -106,7 +106,7 @@ const AddNewAddress = ({navigation}) => {
             animationMode={'flyTo'}
             animationDuration={0}
           />
-          <MapboxGL.UserLocation
+          <UserLocation
             visible={false}
             animated={true}
             onUpdate={onUserLocationUpdate}
@@ -117,13 +117,13 @@ const AddNewAddress = ({navigation}) => {
             color="red"
             label="Label 1"
           /> */}
-          <MapboxGL.PointAnnotation
+          <PointAnnotation
             id="1"
             title="marker title"
             coordinate={location}
             draggable={true}
           />
-        </MapboxGL.MapView>
+        </Map>
       </Container>
     );
   };
