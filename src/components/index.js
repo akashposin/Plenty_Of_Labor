@@ -7,6 +7,7 @@ import HorizontalLine from './HorizontalLine';
 import HeaderComponent from './HeaderComponent';
 import FooterComponent from './FooterComponent';
 import SearchBarComponent from './SearchBarComponent';
+import Map from './Map';
 
 export {
   Container,
@@ -18,4 +19,5 @@ export {
   HeaderComponent,
   FooterComponent,
   SearchBarComponent,
+  Map,
 };
