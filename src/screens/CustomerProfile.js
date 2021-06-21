@@ -1,21 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import {Text, StyleSheet, Image, ScrollView} from 'react-native';
 import {
   ButtonComponent,
   Container,
   HeaderComponent,
   HorizontalLine,
-  TextInputComponent,
 } from '../components';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import Entypo from 'react-native-vector-icons/Entypo';
-import Feather from 'react-native-vector-icons/Feather';
-import { images, theme } from '../constants';
-import { moderateScale } from 'react-native-size-matters';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {images, theme} from '../constants';
+import {moderateScale} from 'react-native-size-matters';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
-const CustomerProfile = ({ navigation }) => {
+const CustomerProfile = ({navigation}) => {
   const renderHeader = () => {
     return (
       <HeaderComponent center middle>
@@ -24,8 +20,7 @@ const CustomerProfile = ({ navigation }) => {
             ...theme.Fonts.fontSemiBold,
             fontSize: theme.Sizes.F14,
             color: theme.Colors.white,
-          }}
-        >
+          }}>
           Account
         </Text>
       </HeaderComponent>
@@ -35,42 +30,35 @@ const CustomerProfile = ({ navigation }) => {
   const renderProfile = () => {
     return (
       <Container center middle flex={false}>
-        <Container
-          flex={false}
-          center
-          middle
-          row
-          style={{ marginTop: theme.Sizes.S14 }}
-        >
+        <Container center middle row style={{marginTop: theme.Sizes.S14}}>
           <Image
             source={images.profile}
             style={{
-              width: theme.Sizes.width / 4,
-              height: theme.Sizes.height / 6.7,
+              width: theme.Sizes.S14 * moderateScale(6.7),
+              height: theme.Sizes.S14 * moderateScale(6.7),
             }}
           />
           <Container
             flex={false}
             style={{
               overflow: 'hidden',
+              position: 'absolute',
               borderRadius: theme.Sizes.radius,
-              borderWidth: 4,
+              borderWidth: moderateScale(4),
               borderColor: theme.Colors.orange,
-              right: theme.Sizes.S14 * 2,
-              top: theme.Sizes.S14 * 2.5,
-            }}
-          >
+              left: theme.Sizes.S14 * moderateScale(4.6),
+              top: theme.Sizes.S14 * moderateScale(4.8),
+            }}>
             <ButtonComponent
               style={{
-                width: theme.Sizes.width / 16,
-                height: theme.Sizes.height / 26,
+                width: theme.Sizes.S14 * 1.6,
+                height: theme.Sizes.S14 * 1.6,
                 backgroundColor: theme.Colors.white,
               }}
-              onPress={() => alert('change profile picture')}
-            >
+              onPress={() => alert('change profile picture')}>
               <FontAwesome5
-                name='pen'
-                size={moderateScale(12)}
+                name="pen"
+                size={moderateScale(14)}
                 color={theme.Colors.orange}
               />
             </ButtonComponent>
@@ -86,8 +74,7 @@ const CustomerProfile = ({ navigation }) => {
         flex={false}
         style={{
           marginHorizontal: theme.Sizes.S14 * 1.2,
-        }}
-      >
+        }}>
         {/* Name */}
         <Container flex={false}>
           <Text
@@ -95,8 +82,7 @@ const CustomerProfile = ({ navigation }) => {
               ...theme.Fonts.fontSemiBold,
               fontSize: theme.Sizes.F11,
               color: theme.Colors.gray,
-            }}
-          >
+            }}>
             Name
           </Text>
           <Text
@@ -105,8 +91,7 @@ const CustomerProfile = ({ navigation }) => {
               fontSize: theme.Sizes.F13,
               borderColor: theme.Colors.gray3,
               marginTop: theme.Sizes.S10,
-            }}
-          >
+            }}>
             Wayne Gates
           </Text>
         </Container>
@@ -121,8 +106,7 @@ const CustomerProfile = ({ navigation }) => {
               ...theme.Fonts.fontSemiBold,
               fontSize: theme.Sizes.F11,
               color: theme.Colors.gray,
-            }}
-          >
+            }}>
             Phone Number
           </Text>
           <Text
@@ -131,8 +115,7 @@ const CustomerProfile = ({ navigation }) => {
               fontSize: theme.Sizes.F13,
               borderColor: theme.Colors.gray3,
               marginTop: theme.Sizes.S10,
-            }}
-          >
+            }}>
             869-465-8954
           </Text>
         </Container>
@@ -147,8 +130,7 @@ const CustomerProfile = ({ navigation }) => {
               ...theme.Fonts.fontSemiBold,
               fontSize: theme.Sizes.F11,
               color: theme.Colors.gray,
-            }}
-          >
+            }}>
             Home Address
           </Text>
           <Text
@@ -157,8 +139,7 @@ const CustomerProfile = ({ navigation }) => {
               fontSize: theme.Sizes.F13,
               borderColor: theme.Colors.gray3,
               marginTop: theme.Sizes.S10,
-            }}
-          >
+            }}>
             Mayfair, Saskatoon, SK S7L 1V6, Canada
           </Text>
         </Container>

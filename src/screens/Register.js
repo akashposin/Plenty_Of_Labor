@@ -1,14 +1,16 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {Keyboard, StyleSheet, Text} from 'react-native';
 import {theme} from '../constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ButtonComponent, Container, TextInputComponent} from '../components';
 import {moderateScale} from 'react-native-size-matters';
 import axios from 'axios';
+import Toast from 'react-native-toast-message';
 
 const Register = ({route, navigation}) => {
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [confirmPassword, setConfirmPassword] = React.useState('');
 
   const emailInputHandler = inputText => {
     setEmail(inputText);
@@ -18,6 +20,13 @@ const Register = ({route, navigation}) => {
     setPassword(inputText);
   };
 
+  const confirmPasswordInputHandler = inputText => {
+    setConfirmPassword(inputText);
+  };
+
+  const submit = () => {
+    Keyboard.dismiss();
+  };
   //   inputs
   const renderTextInputs = () => {
     return (
@@ -50,20 +59,68 @@ const Register = ({route, navigation}) => {
           placeholderTextColor={theme.Colors.gray}
           secureTextEntry
         />
+
+        <TextInputComponent
+          style={{
+            borderRadius: theme.Sizes.radius / 5,
+            paddingLeft: theme.Sizes.S14 / 2,
+            letterSpacing: moderateScale(0.5),
+          }}
+          value={confirmPassword}
+          onChangeText={confirmPasswordInputHandler}
+          placeholder="please confirm password"
+          placeholderTextColor={theme.Colors.gray}
+          onSubmitEditing={submit}
+          secureTextEntry
+        />
       </Container>
     );
   };
 
   const registerUser = async () => {
-    const data = {email: email, password: password};
-    const result = await axios.post(
-      'https://pol.aisoftwares.co.in/save-user',
-      data,
-    );
-    if (result.data.success === 'true') {
-      navigation.navigate('Login');
-    } else {
-      console.log('invalid email');
+    try {
+      const data = {email: email, password: password};
+      const result = await axios.post(
+        'https://pol.aisoftwares.co.in/save-user',
+        data,
+      );
+
+      if (password !== confirmPassword) {
+        Toast.show({
+          topOffset: moderateScale(100),
+          type: 'error',
+          text1: 'Error',
+          text2: "password didn't matched please enter correct password",
+          visibilityTime: 1000,
+        });
+      }
+
+      if (result.data.success === 'true') {
+        Toast.show({
+          topOffset: moderateScale(100),
+          type: 'success',
+          text1: 'User created successfully',
+          text2: 'Please login',
+          visibilityTime: 300,
+        });
+        navigation.navigate('Login');
+      } else {
+        Toast.show({
+          topOffset: moderateScale(100),
+          type: 'error',
+          text1: 'User already exists with this email',
+          text2: 'Please login instead',
+          visibilityTime: 300,
+        });
+      }
+    } catch (error) {
+      Toast.show({
+        topOffset: moderateScale(60),
+        type: 'error',
+        text1: 'Error',
+        text2: 'Network error please again later',
+        visibilityTime: 1000,
+      });
     }
   };
 

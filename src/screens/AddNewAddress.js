@@ -38,12 +38,11 @@ const AddNewAddress = ({navigation}) => {
       <HeaderComponent row center>
         <ButtonComponent
           style={{
-            height: theme.Sizes.height / 22,
-            width: theme.Sizes.width / 14,
+            height: theme.Sizes.S14 * 2,
+            width: theme.Sizes.S14 * 2,
             marginHorizontal: theme.Sizes.S14,
           }}
-          // onPress
-        >
+          onPress={() => navigation.goBack()}>
           <MaterialIcons
             name="keyboard-arrow-left"
             size={moderateScale(24)}

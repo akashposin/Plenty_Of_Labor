@@ -82,7 +82,7 @@ const BookingMarkComplete = () => {
                   style={{
                     backgroundColor: theme.Colors.green,
                     borderRadius: theme.Sizes.radius / 10,
-                    width: theme.Sizes.S14 * 3.8,
+                    width: theme.Sizes.S14 * 5,
                     height: theme.Sizes.S14 * 1.1,
                   }}>
                   <Text
@@ -91,7 +91,7 @@ const BookingMarkComplete = () => {
                       color: theme.Colors.white,
                       fontSize: theme.Sizes.F10,
                     }}>
-                    Coming
+                    In Progress
                   </Text>
                 </Container>
               </Container>
@@ -257,8 +257,12 @@ const BookingMarkComplete = () => {
           }}>
           <Container>
             {/* Text Left*/}
-            <Container row style={{marginBottom: theme.Sizes.S10}}>
-              <Container>
+            <Container
+              row
+              style={{
+                marginBottom: theme.Sizes.S10,
+              }}>
+              <Container middle style={{height: theme.Sizes.S14 * 1.3}}>
                 <Text
                   style={{
                     ...theme.Fonts.fontBold,
@@ -274,8 +278,7 @@ const BookingMarkComplete = () => {
                 center
                 middle
                 style={{
-                  width: theme.Sizes.width / 10,
-                  height: theme.Sizes.height / 38,
+                  width: theme.Sizes.S14 * 2.8,
                   borderRadius: theme.Sizes.radius / 10,
                 }}>
                 <Text

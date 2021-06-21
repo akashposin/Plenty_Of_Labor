@@ -1,7 +1,7 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text } from 'react-native';
-import { theme } from '../constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {ScrollView, StyleSheet, Text} from 'react-native';
+import {theme} from '../constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   ButtonComponent,
   Card,
@@ -11,23 +11,22 @@ import {
   HorizontalLine,
 } from '../components';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { moderateScale } from 'react-native-size-matters';
+import {moderateScale} from 'react-native-size-matters';
 
-const SelectTimeSlot = ({ navigation }) => {
+const SelectTimeSlot = ({navigation}) => {
   // Header
   const renderHeader = () => {
     return (
       <HeaderComponent row center>
         <ButtonComponent
           style={{
-            height: theme.Sizes.height / 22,
-            width: theme.Sizes.width / 14,
+            height: theme.Sizes.S14 * 2,
+            width: theme.Sizes.S14 * 2,
             marginHorizontal: theme.Sizes.S14,
           }}
-          // onPress
-        >
+          onPress={() => navigation.goBack()}>
           <MaterialIcons
-            name='keyboard-arrow-left'
+            name="keyboard-arrow-left"
             size={moderateScale(24)}
             color={theme.Colors.white}
           />
@@ -38,8 +37,7 @@ const SelectTimeSlot = ({ navigation }) => {
             ...theme.Fonts.fontSemiBold,
             fontSize: theme.Sizes.F14,
             color: theme.Colors.white,
-          }}
-        >
+          }}>
           Select Time Slot
         </Text>
       </HeaderComponent>
@@ -52,41 +50,36 @@ const SelectTimeSlot = ({ navigation }) => {
       <Container
         flex={false}
         row
-        color='gray2'
+        color="gray2"
         style={{
           borderBottomWidth: moderateScale(0.5),
           borderColor: theme.Colors.gray,
-        }}
-      >
+        }}>
         <Container
           row
           style={{
             marginHorizontal: theme.Sizes.S10,
             marginTop: theme.Sizes.S10 / 3,
-          }}
-        >
+          }}>
           {/* Home Button */}
           <Container
             flex={false}
             style={{
               overflow: 'hidden',
-            }}
-          >
+            }}>
             <ButtonComponent
               style={{
                 backgroundColor: theme.Colors.green,
                 width: theme.Sizes.width / 7,
                 height: theme.Sizes.height / 30,
                 borderRadius: theme.Sizes.radius / 10,
-              }}
-            >
+              }}>
               <Text
                 style={{
                   ...theme.Fonts.fontSemiBold,
                   fontSize: theme.Sizes.F10,
                   color: theme.Colors.white,
-                }}
-              >
+                }}>
                 Home
               </Text>
             </ButtonComponent>
@@ -95,12 +88,10 @@ const SelectTimeSlot = ({ navigation }) => {
           <Container
             style={{
               marginHorizontal: theme.Sizes.S10 * 2,
-            }}
-          >
-            <Text style={{ ...theme.Fonts.fontBold }}>Address for Service</Text>
+            }}>
+            <Text style={{...theme.Fonts.fontBold}}>Address for Service</Text>
             <Text
-              style={{ ...theme.Fonts.fontSemiBold, color: theme.Colors.gray }}
-            >
+              style={{...theme.Fonts.fontSemiBold, color: theme.Colors.gray}}>
               Mayfair, Saskatoon, SK S7L 1V6, Canada
             </Text>
           </Container>
@@ -110,23 +101,20 @@ const SelectTimeSlot = ({ navigation }) => {
             flex={false}
             style={{
               overflow: 'hidden',
-            }}
-          >
+            }}>
             <ButtonComponent
               style={{
                 backgroundColor: theme.Colors.gray,
                 width: theme.Sizes.width / 7,
                 height: theme.Sizes.height / 30,
                 borderRadius: theme.Sizes.radius / 10,
-              }}
-            >
+              }}>
               <Text
                 style={{
                   ...theme.Fonts.fontSemiBold,
                   fontSize: theme.Sizes.F10,
                   color: theme.Colors.white,
-                }}
-              >
+                }}>
                 Change
               </Text>
             </ButtonComponent>
@@ -144,9 +132,8 @@ const SelectTimeSlot = ({ navigation }) => {
         style={{
           marginLeft: theme.Sizes.S10 * 2,
           marginVertical: theme.Sizes.S10,
-        }}
-      >
-        <Text style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}>
+        }}>
+        <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
           When would you like this service?
         </Text>
       </Container>
@@ -165,14 +152,11 @@ const SelectTimeSlot = ({ navigation }) => {
             borderWidth: moderateScale(0.6),
             borderRadius: theme.Sizes.S10 / 2,
             marginRight: theme.Sizes.S14,
-          }}
-        >
-          <Text style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}>
+          }}>
+          <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
             19
           </Text>
-          <Text
-            style={{ ...theme.Fonts.fontMedium, fontSize: theme.Sizes.F10 }}
-          >
+          <Text style={{...theme.Fonts.fontMedium, fontSize: theme.Sizes.F10}}>
             Today
           </Text>
         </Card>
@@ -185,14 +169,11 @@ const SelectTimeSlot = ({ navigation }) => {
             borderWidth: moderateScale(0.6),
             borderRadius: theme.Sizes.S10 / 2,
             marginRight: theme.Sizes.S14,
-          }}
-        >
-          <Text style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}>
+          }}>
+          <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
             20
           </Text>
-          <Text
-            style={{ ...theme.Fonts.fontMedium, fontSize: theme.Sizes.F10 }}
-          >
+          <Text style={{...theme.Fonts.fontMedium, fontSize: theme.Sizes.F10}}>
             Tomorrow
           </Text>
         </Card>
@@ -205,14 +186,11 @@ const SelectTimeSlot = ({ navigation }) => {
             borderWidth: moderateScale(0.6),
             borderRadius: theme.Sizes.S10 / 2,
             marginRight: theme.Sizes.S14,
-          }}
-        >
-          <Text style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}>
+          }}>
+          <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
             21
           </Text>
-          <Text
-            style={{ ...theme.Fonts.fontMedium, fontSize: theme.Sizes.F10 }}
-          >
+          <Text style={{...theme.Fonts.fontMedium, fontSize: theme.Sizes.F10}}>
             Friday
           </Text>
         </Card>
@@ -232,8 +210,7 @@ const SelectTimeSlot = ({ navigation }) => {
           style={{
             marginHorizontal: theme.Sizes.S14 * 2,
             marginTop: theme.Sizes.S14,
-          }}
-        >
+          }}>
           <Card
             middle
             center
@@ -243,11 +220,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               12:00 PM
             </Text>
           </Card>
@@ -261,11 +235,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               12:30 PM
             </Text>
           </Card>
@@ -279,8 +250,7 @@ const SelectTimeSlot = ({ navigation }) => {
           style={{
             marginHorizontal: theme.Sizes.S14 * 2,
             marginTop: theme.Sizes.S14,
-          }}
-        >
+          }}>
           <Card
             middle
             center
@@ -290,11 +260,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               1:00 PM
             </Text>
           </Card>
@@ -308,11 +275,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               1:30 PM
             </Text>
           </Card>
@@ -326,8 +290,7 @@ const SelectTimeSlot = ({ navigation }) => {
           style={{
             marginHorizontal: theme.Sizes.S14 * 2,
             marginTop: theme.Sizes.S14,
-          }}
-        >
+          }}>
           <Card
             middle
             center
@@ -337,11 +300,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               2:00 PM
             </Text>
           </Card>
@@ -355,11 +315,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               2:30 PM
             </Text>
           </Card>
@@ -373,8 +330,7 @@ const SelectTimeSlot = ({ navigation }) => {
           style={{
             marginHorizontal: theme.Sizes.S14 * 2,
             marginTop: theme.Sizes.S14,
-          }}
-        >
+          }}>
           <Card
             middle
             center
@@ -384,11 +340,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               3:00 PM
             </Text>
           </Card>
@@ -402,11 +355,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               3:30 PM
             </Text>
           </Card>
@@ -420,8 +370,7 @@ const SelectTimeSlot = ({ navigation }) => {
           style={{
             marginHorizontal: theme.Sizes.S14 * 2,
             marginTop: theme.Sizes.S14,
-          }}
-        >
+          }}>
           <Card
             middle
             center
@@ -431,11 +380,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               4:00 PM
             </Text>
           </Card>
@@ -449,11 +395,8 @@ const SelectTimeSlot = ({ navigation }) => {
               borderWidth: moderateScale(0.6),
               borderRadius: theme.Sizes.S10 / 2,
               marginRight: theme.Sizes.S14,
-            }}
-          >
-            <Text
-              style={{ ...theme.Fonts.fontBold, fontSize: theme.Sizes.F14 }}
-            >
+            }}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
               4:30 PM
             </Text>
           </Card>
@@ -466,29 +409,26 @@ const SelectTimeSlot = ({ navigation }) => {
 
   const renderAddDayTimeButton = () => {
     return (
-      <Container style={{ marginHorizontal: theme.Sizes.S14 }}>
+      <Container style={{marginHorizontal: theme.Sizes.S14}}>
         <Container center middle>
           <Container
             style={{
               overflow: 'hidden',
               borderRadius: theme.Sizes.radius,
               marginTop: theme.Sizes.S14,
-            }}
-          >
+            }}>
             <ButtonComponent
               style={{
                 backgroundColor: theme.Colors.orange,
                 width: theme.Sizes.width / 1.8,
                 height: theme.Sizes.height / 20,
-              }}
-            >
+              }}>
               <Text
                 style={{
                   ...theme.Fonts.fontSemiBold,
                   fontSize: theme.Sizes.F12,
                   color: theme.Colors.white,
-                }}
-              >
+                }}>
                 Add your own day & time
               </Text>
             </ButtonComponent>

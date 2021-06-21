@@ -1,10 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {Keyboard, StyleSheet, Text} from 'react-native';
 import {theme} from '../constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ButtonComponent, Container, TextInputComponent} from '../components';
 import {moderateScale} from 'react-native-size-matters';
 import axios from 'axios';
+import Toast from 'react-native-toast-message';
 
 const Login = ({navigation}) => {
   const [email, setEmail] = React.useState('');
@@ -16,6 +17,10 @@ const Login = ({navigation}) => {
 
   const passwordInputHandler = inputText => {
     setPassword(inputText);
+  };
+
+  const submit = () => {
+    Keyboard.dismiss();
   };
 
   const renderTextInput = () => {
@@ -47,6 +52,7 @@ const Login = ({navigation}) => {
           onChangeText={passwordInputHandler}
           placeholder="please enter password"
           placeholderTextColor={theme.Colors.gray}
+          onSubmitEditing={submit}
           secureTextEntry
         />
       </Container>
@@ -61,12 +67,33 @@ const Login = ({navigation}) => {
         data,
       );
       if (result.data.success === 'true') {
+        Toast.show({
+          topOffset: moderateScale(100),
+          type: 'success',
+          text1: 'Success',
+          text2: 'logged in successfully',
+          visibilityTime: 300,
+        });
+        // setTimeout(() => {
         navigation.navigate('Home');
+        // }, 500);
       } else {
-        console.log('invalid credentials');
+        Toast.show({
+          topOffset: moderateScale(60),
+          type: 'error',
+          text1: 'Error',
+          text2: 'Invalid Credentials, please try again',
+          visibilityTime: 500,
+        });
       }
     } catch (error) {
-      console.log(error);
+      Toast.show({
+        topOffset: moderateScale(60),
+        type: 'error',
+        text1: 'Error',
+        text2: 'Network error please again later',
+        visibilityTime: 1000,
+      });
     }
   };
 

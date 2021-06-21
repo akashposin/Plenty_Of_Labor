@@ -100,7 +100,7 @@ const BookingLeaveAReview = () => {
                   style={{
                     backgroundColor: theme.Colors.green,
                     borderRadius: theme.Sizes.radius / 10,
-                    width: theme.Sizes.S14 * 3.8,
+                    width: theme.Sizes.S14 * 5,
                     height: theme.Sizes.S14 * 1.1,
                   }}>
                   <Text
@@ -109,7 +109,7 @@ const BookingLeaveAReview = () => {
                       color: theme.Colors.white,
                       fontSize: theme.Sizes.F10,
                     }}>
-                    Coming
+                    In Progress
                   </Text>
                 </Container>
               </Container>
@@ -273,59 +273,64 @@ const BookingLeaveAReview = () => {
             height: theme.Sizes.height / 9,
             borderRadius: theme.Sizes.radius / 5,
           }}>
-          {/* Text Left*/}
-          <Container row style={{marginBottom: theme.Sizes.S10}}>
-            <Container>
-              <Text
-                style={{
-                  ...theme.Fonts.fontBold,
-                  fontSize: theme.Sizes.F14,
-                }}>
-                Booking Details
-              </Text>
-            </Container>
-
+          <Container>
+            {/* Text Left*/}
             <Container
-              flex={false}
-              color="orange"
-              center
-              middle
+              row
               style={{
-                width: theme.Sizes.width / 10,
-                height: theme.Sizes.height / 38,
-                borderRadius: theme.Sizes.radius / 10,
+                marginBottom: theme.Sizes.S10,
               }}>
-              <Text
-                style={{
-                  ...theme.Fonts.fontBold,
-                  fontSize: theme.Sizes.F10,
-                  color: theme.Colors.white,
-                }}>
-                #1025
-              </Text>
-            </Container>
-          </Container>
+              <Container middle style={{height: theme.Sizes.S14 * 1.3}}>
+                <Text
+                  style={{
+                    ...theme.Fonts.fontBold,
+                    fontSize: theme.Sizes.F14,
+                  }}>
+                  Booking Details
+                </Text>
+              </Container>
 
-          {/* Text Right */}
-          <Container row>
-            <Container>
-              <Text
+              <Container
+                flex={false}
+                color="orange"
+                center
+                middle
                 style={{
-                  ...theme.Fonts.fontSemiBold,
-                  color: theme.Colors.gray,
+                  width: theme.Sizes.S14 * 2.8,
+                  borderRadius: theme.Sizes.radius / 10,
                 }}>
-                Status
-              </Text>
+                <Text
+                  style={{
+                    ...theme.Fonts.fontBold,
+                    fontSize: theme.Sizes.F10,
+                    color: theme.Colors.white,
+                  }}>
+                  #1025
+                </Text>
+              </Container>
             </Container>
 
-            <Container flex={false}>
-              <Text
-                style={{
-                  ...theme.Fonts.fontSemiBold,
-                  color: theme.Colors.gray,
-                }}>
-                Ready
-              </Text>
+            {/* Text Right */}
+            <Container row>
+              <Container>
+                <Text
+                  style={{
+                    ...theme.Fonts.fontSemiBold,
+                    color: theme.Colors.gray,
+                  }}>
+                  Status
+                </Text>
+              </Container>
+
+              <Container flex={false}>
+                <Text
+                  style={{
+                    ...theme.Fonts.fontSemiBold,
+                    color: theme.Colors.gray,
+                  }}>
+                  Ready
+                </Text>
+              </Container>
             </Container>
           </Container>
         </Card>

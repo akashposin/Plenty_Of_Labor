@@ -42,11 +42,12 @@ const ServiceProviderProfile = ({navigation}) => {
             flex={false}
             style={{
               overflow: 'hidden',
+              position: 'absolute',
               borderRadius: theme.Sizes.radius,
               borderWidth: moderateScale(4),
               borderColor: theme.Colors.orange,
-              right: theme.Sizes.S14 * moderateScale(2),
-              top: theme.Sizes.S14 * moderateScale(2.5),
+              left: theme.Sizes.S14 * moderateScale(4.6),
+              top: theme.Sizes.S14 * moderateScale(4.8),
             }}>
             <ButtonComponent
               style={{

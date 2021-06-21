@@ -4,6 +4,7 @@ import Autocomplete from 'react-native-autocomplete-input';
 import axios from 'axios';
 import {theme} from '../constants';
 import SearchBarComponent from './SearchBarComponent';
+import {moderateScale} from 'react-native-size-matters';
 
 const AutoCompleteSearch = props => {
   const [mainData, setMainData] = useState([]);
@@ -40,11 +41,11 @@ const AutoCompleteSearch = props => {
       )}
       flatListProps={{
         keyboardShouldPersistTaps: 'always',
-        keyExtractor: item => item.id,
+        keyExtractor: item => item.user_id,
         renderItem: ({item}) => {
           return (
             <TouchableOpacity onPress={props.onPress}>
-              <Text style={styles.dropDownText}>{item.category_name}</Text>
+              <Text style={styles.dropDownText}>{item.sub_cat_name}</Text>
             </TouchableOpacity>
           );
         },
@@ -56,7 +57,7 @@ const AutoCompleteSearch = props => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: theme.Sizes.S14 * 2,
-    top: 50,
+    top: moderateScale(45),
     position: 'absolute',
     zIndex: 1,
     width: theme.Sizes.width / 1.17,

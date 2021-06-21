@@ -1,12 +1,12 @@
 import React from 'react';
-import { Image, ScrollView, StyleSheet, Text } from 'react-native';
-import { images, theme } from '../constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Card, Container, HeaderComponent } from '../components';
+import {Image, ScrollView, StyleSheet, Text} from 'react-native';
+import {images, theme} from '../constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {Card, Container, HeaderComponent} from '../components';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { moderateScale } from 'react-native-size-matters';
+import {moderateScale} from 'react-native-size-matters';
 
-const ServiceProviderListOfReviews = ({ navigation }) => {
+const ServiceProviderListOfReviews = ({navigation}) => {
   // Header
   const renderHeader = () => {
     return (
@@ -16,8 +16,7 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
             ...theme.Fonts.fontSemiBold,
             fontSize: theme.Sizes.F14,
             color: theme.Colors.white,
-          }}
-        >
+          }}>
           Reviews
         </Text>
       </HeaderComponent>
@@ -31,8 +30,7 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
         style={{
           marginHorizontal: theme.Sizes.S14 * 2,
           marginBottom: theme.Sizes.S14 * 2,
-        }}
-      >
+        }}>
         {/* Ist Card */}
         <Card
           shadow
@@ -41,17 +39,22 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
             borderRadius: theme.Sizes.S10,
             borderLeftWidth: theme.Sizes.S10,
             marginTop: theme.Sizes.S14,
-          }}
-        >
+          }}>
           <Container row>
             {/* Profile Image */}
-            <Container flex={false} style={{ marginRight: theme.Sizes.S10 }}>
+            <Container
+              center
+              middle
+              flex={false}
+              style={{
+                marginRight: theme.Sizes.S14,
+              }}>
               <Image
                 source={images.profile}
-                resizeMode='contain'
+                resizeMode="contain"
                 style={{
-                  width: theme.Sizes.width / 5,
-                  height: theme.Sizes.height / 8,
+                  width: theme.Sizes.S14 * 6,
+                  height: theme.Sizes.S14 * 6,
                 }}
               />
             </Container>
@@ -63,22 +66,20 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
                   style={{
                     ...theme.Fonts.fontBold,
                     fontSize: theme.Sizes.F14,
-                  }}
-                >
+                  }}>
                   Bill Smith
                 </Text>
               </Container>
 
               {/* Address */}
-              <Container flex={false} style={{ width: theme.Sizes.width / 2 }}>
+              <Container flex={false}>
                 <Text
                   style={{
                     ...theme.Fonts.fontSemiBold,
                     color: theme.Colors.black,
                     marginTop: theme.Sizes.S10 / 3,
                     fontSize: theme.Sizes.F11,
-                  }}
-                >
+                  }}>
                   Mayfair, Saskatoon, SK S7L 1V6, Canada
                 </Text>
               </Container>
@@ -88,27 +89,25 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
                 <Container
                   flex={false}
                   center
+                  middle
                   style={{
                     marginTop: theme.Sizes.S10 / 3,
-                    height: theme.Sizes.height / 38,
-                    width: theme.Sizes.width / 14,
-                    marginRight: theme.Sizes.S10 / 5,
+                    width: theme.Sizes.S14 * 2,
+                    marginRight: theme.Sizes.S10 / 4,
                     backgroundColor: theme.Colors.orange,
                     borderRadius: theme.Sizes.radius / 12,
-                  }}
-                >
+                  }}>
                   <Text
                     style={{
                       ...theme.Fonts.fontSemiBold,
                       color: theme.Colors.white,
                       fontSize: theme.Sizes.F11,
-                    }}
-                  >
+                    }}>
                     4.5
                   </Text>
                 </Container>
                 <Entypo
-                  name='star'
+                  name="star"
                   size={moderateScale(18)}
                   color={theme.Colors.yellow}
                 />
@@ -125,17 +124,22 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
             borderRadius: theme.Sizes.S10,
             borderLeftWidth: theme.Sizes.S10,
             marginTop: theme.Sizes.S14,
-          }}
-        >
+          }}>
           <Container row>
             {/* Profile Image */}
-            <Container flex={false} style={{ marginRight: theme.Sizes.S10 }}>
+            <Container
+              center
+              middle
+              flex={false}
+              style={{
+                marginRight: theme.Sizes.S14,
+              }}>
               <Image
                 source={images.profile}
-                resizeMode='contain'
+                resizeMode="contain"
                 style={{
-                  width: theme.Sizes.width / 5,
-                  height: theme.Sizes.height / 8,
+                  width: theme.Sizes.S14 * 6,
+                  height: theme.Sizes.S14 * 6,
                 }}
               />
             </Container>
@@ -147,22 +151,20 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
                   style={{
                     ...theme.Fonts.fontBold,
                     fontSize: theme.Sizes.F14,
-                  }}
-                >
+                  }}>
                   Jeff Bezos
                 </Text>
               </Container>
 
               {/* Address */}
-              <Container flex={false} style={{ width: theme.Sizes.width / 2 }}>
+              <Container flex={false}>
                 <Text
                   style={{
                     ...theme.Fonts.fontSemiBold,
                     color: theme.Colors.black,
                     marginTop: theme.Sizes.S10 / 3,
                     fontSize: theme.Sizes.F11,
-                  }}
-                >
+                  }}>
                   502 Albert Ave, Saskatoon, SK S7N 1G5, Canada
                 </Text>
               </Container>
@@ -174,25 +176,22 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
                   center
                   style={{
                     marginTop: theme.Sizes.S10 / 3,
-                    height: theme.Sizes.height / 38,
-                    width: theme.Sizes.width / 14,
-                    marginRight: theme.Sizes.S10 / 5,
+                    width: theme.Sizes.S14 * 2,
+                    marginRight: theme.Sizes.S10 / 4,
                     backgroundColor: theme.Colors.orange,
                     borderRadius: theme.Sizes.radius / 12,
-                  }}
-                >
+                  }}>
                   <Text
                     style={{
                       ...theme.Fonts.fontSemiBold,
                       color: theme.Colors.white,
                       fontSize: theme.Sizes.F11,
-                    }}
-                  >
+                    }}>
                     4.5
                   </Text>
                 </Container>
                 <Entypo
-                  name='star'
+                  name="star"
                   size={moderateScale(18)}
                   color={theme.Colors.yellow}
                 />
@@ -209,17 +208,22 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
             borderRadius: theme.Sizes.S10,
             borderLeftWidth: theme.Sizes.S10,
             marginTop: theme.Sizes.S14,
-          }}
-        >
+          }}>
           <Container row>
             {/* Profile Image */}
-            <Container flex={false} style={{ marginRight: theme.Sizes.S10 }}>
+            <Container
+              center
+              middle
+              flex={false}
+              style={{
+                marginRight: theme.Sizes.S14,
+              }}>
               <Image
                 source={images.profile}
-                resizeMode='contain'
+                resizeMode="contain"
                 style={{
-                  width: theme.Sizes.width / 5,
-                  height: theme.Sizes.height / 8,
+                  width: theme.Sizes.S14 * 6,
+                  height: theme.Sizes.S14 * 6,
                 }}
               />
             </Container>
@@ -231,22 +235,20 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
                   style={{
                     ...theme.Fonts.fontBold,
                     fontSize: theme.Sizes.F14,
-                  }}
-                >
+                  }}>
                   Bill Smith
                 </Text>
               </Container>
 
               {/* Address */}
-              <Container flex={false} style={{ width: theme.Sizes.width / 2 }}>
+              <Container flex={false} style={{width: theme.Sizes.width / 2}}>
                 <Text
                   style={{
                     ...theme.Fonts.fontSemiBold,
                     color: theme.Colors.black,
                     marginTop: theme.Sizes.S10 / 3,
                     fontSize: theme.Sizes.F11,
-                  }}
-                >
+                  }}>
                   Mayfair, Saskatoon, SK S7L 1V6, Canada
                 </Text>
               </Container>
@@ -258,25 +260,22 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
                   center
                   style={{
                     marginTop: theme.Sizes.S10 / 3,
-                    height: theme.Sizes.height / 38,
-                    width: theme.Sizes.width / 14,
-                    marginRight: theme.Sizes.S10 / 5,
+                    width: theme.Sizes.S14 * 2,
+                    marginRight: theme.Sizes.S10 / 4,
                     backgroundColor: theme.Colors.orange,
                     borderRadius: theme.Sizes.radius / 12,
-                  }}
-                >
+                  }}>
                   <Text
                     style={{
                       ...theme.Fonts.fontSemiBold,
                       color: theme.Colors.white,
                       fontSize: theme.Sizes.F11,
-                    }}
-                  >
+                    }}>
                     4.5
                   </Text>
                 </Container>
                 <Entypo
-                  name='star'
+                  name="star"
                   size={moderateScale(18)}
                   color={theme.Colors.yellow}
                 />
@@ -293,17 +292,22 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
             borderRadius: theme.Sizes.S10,
             borderLeftWidth: theme.Sizes.S10,
             marginTop: theme.Sizes.S14,
-          }}
-        >
+          }}>
           <Container row>
             {/* Profile Image */}
-            <Container flex={false} style={{ marginRight: theme.Sizes.S10 }}>
+            <Container
+              center
+              middle
+              flex={false}
+              style={{
+                marginRight: theme.Sizes.S14,
+              }}>
               <Image
                 source={images.profile}
-                resizeMode='contain'
+                resizeMode="contain"
                 style={{
-                  width: theme.Sizes.width / 5,
-                  height: theme.Sizes.height / 8,
+                  width: theme.Sizes.S14 * 6,
+                  height: theme.Sizes.S14 * 6,
                 }}
               />
             </Container>
@@ -315,22 +319,20 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
                   style={{
                     ...theme.Fonts.fontBold,
                     fontSize: theme.Sizes.F14,
-                  }}
-                >
+                  }}>
                   Diane Kruger
                 </Text>
               </Container>
 
               {/* Address */}
-              <Container flex={false} style={{ width: theme.Sizes.width / 2 }}>
+              <Container flex={false} style={{width: theme.Sizes.width / 2}}>
                 <Text
                   style={{
                     ...theme.Fonts.fontSemiBold,
                     color: theme.Colors.black,
                     marginTop: theme.Sizes.S10 / 3,
                     fontSize: theme.Sizes.F11,
-                  }}
-                >
+                  }}>
                   505 Albert Ave, Saskatoon, SK S7N 1G4 Canada
                 </Text>
               </Container>
@@ -342,25 +344,22 @@ const ServiceProviderListOfReviews = ({ navigation }) => {
                   center
                   style={{
                     marginTop: theme.Sizes.S10 / 3,
-                    height: theme.Sizes.height / 38,
-                    width: theme.Sizes.width / 14,
-                    marginRight: theme.Sizes.S10 / 5,
+                    width: theme.Sizes.S14 * 2,
+                    marginRight: theme.Sizes.S10 / 4,
                     backgroundColor: theme.Colors.orange,
                     borderRadius: theme.Sizes.radius / 12,
-                  }}
-                >
+                  }}>
                   <Text
                     style={{
                       ...theme.Fonts.fontSemiBold,
                       color: theme.Colors.white,
                       fontSize: theme.Sizes.F11,
-                    }}
-                  >
+                    }}>
                     5.0
                   </Text>
                 </Container>
                 <Entypo
-                  name='star'
+                  name="star"
                   size={moderateScale(18)}
                   color={theme.Colors.yellow}
                 />

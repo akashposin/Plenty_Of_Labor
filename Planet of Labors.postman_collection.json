@@ -101,8 +101,7 @@
 								{
 									"key": "keyword",
 									"value": "salm",
-									"type": "text",
-									"disabled": true
+									"type": "text"
 								}
 							]
 						},
@@ -123,6 +122,230 @@
 								{
 									"key": "keyword",
 									"value": "Cut Grass"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/get-user-details?user_id=5",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"get-user-details"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Rating",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "customer_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "service_provider_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "punctuality",
+									"value": "4.3",
+									"type": "text"
+								},
+								{
+									"key": "negotiating",
+									"value": "4.5",
+									"type": "text"
+								},
+								{
+									"key": "quality",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/save-review",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"save-review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Profile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "testing name",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "2424234",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "43",
+									"type": "text"
+								},
+								{
+									"key": "experience",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "user_type",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "user_image",
+									"type": "file",
+									"src": "/Users/salmaniqbal/Desktop/Screenshot 2021-06-19 at 12.44.14 PM.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/save-user-profile",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"save-user-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/get-user-profile?user_type=user&user_id=3",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"get-user-profile"
+							],
+							"query": [
+								{
+									"key": "user_type",
+									"value": "user"
+								},
+								{
+									"key": "user_id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/get-categories",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"get-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sub Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/get-sub-categories?cat_id=1",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"get-sub-categories"
+							],
+							"query": [
+								{
+									"key": "cat_id",
+									"value": "1"
 								}
 							]
 						}
@@ -246,6 +469,229 @@
 								{
 									"key": "keyword",
 									"value": "Cut Grass"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://pol.aisoftwares.co.in/get-user-details?user_id=5",
+							"protocol": "https",
+							"host": [
+								"pol",
+								"aisoftwares",
+								"co",
+								"in"
+							],
+							"path": [
+								"get-user-details"
+							],
+							"query": [
+								{
+									"key": "user_id",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Save Ratings",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "customer_id",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "service_provider_id",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "punctuality",
+									"value": "4.3",
+									"type": "text"
+								},
+								{
+									"key": "negotiating",
+									"value": "4.5",
+									"type": "text"
+								},
+								{
+									"key": "quality",
+									"value": "5",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://pol.aisoftwares.co.in/save-review",
+							"protocol": "https",
+							"host": [
+								"pol",
+								"aisoftwares",
+								"co",
+								"in"
+							],
+							"path": [
+								"save-review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Profile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_id",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "name",
+									"value": "testing name",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "2424234",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "43",
+									"type": "text"
+								},
+								{
+									"key": "experience",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "user_type",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "user_image",
+									"type": "file",
+									"src": "/Users/salmaniqbal/Desktop/Screenshot 2021-06-19 at 12.44.14 PM.png"
+								},
+								{
+									"key": "sub_category_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://pol.aisoftwares.co.in/save-user-profile",
+							"protocol": "https",
+							"host": [
+								"pol",
+								"aisoftwares",
+								"co",
+								"in"
+							],
+							"path": [
+								"save-user-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://pol.aisoftwares.co.in/get-user-profile?user_type=user&user_id=3",
+							"protocol": "https",
+							"host": [
+								"pol",
+								"aisoftwares",
+								"co",
+								"in"
+							],
+							"path": [
+								"get-user-profile"
+							],
+							"query": [
+								{
+									"key": "user_type",
+									"value": "user"
+								},
+								{
+									"key": "user_id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://pol.aisoftwares.co.in/get-categories",
+							"protocol": "https",
+							"host": [
+								"pol",
+								"aisoftwares",
+								"co",
+								"in"
+							],
+							"path": [
+								"get-categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sub Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://pol.aisoftwares.co.in/get-sub-categories?cat_id=1",
+							"protocol": "https",
+							"host": [
+								"pol",
+								"aisoftwares",
+								"co",
+								"in"
+							],
+							"path": [
+								"get-sub-categories"
+							],
+							"query": [
+								{
+									"key": "cat_id",
+									"value": "1"
 								}
 							]
 						}

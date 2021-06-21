@@ -36,6 +36,7 @@ import Profile from './screens/Profile';
 import {theme} from './constants';
 import {StatusBar} from 'react-native';
 import ForgotPassword from './screens/ForgotPassword';
+import Toast from 'react-native-toast-message';
 
 const Stack = createStackNavigator();
 
@@ -110,6 +111,7 @@ const App = () => {
           />
           <Stack.Screen name="CustomerProfile" component={CustomerProfile} />
         </Stack.Navigator>
+        <Toast ref={ref => Toast.setRef(ref)} />
       </NavigationContainer>
     </SafeAreaProvider>
   );

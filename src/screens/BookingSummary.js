@@ -1,7 +1,7 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { images, theme } from '../constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {images, theme} from '../constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {
   ButtonComponent,
   Card,
@@ -10,23 +10,22 @@ import {
   HeaderComponent,
 } from '../components';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { moderateScale } from 'react-native-size-matters';
+import {moderateScale} from 'react-native-size-matters';
 
-const BookingSummary = ({ navigation }) => {
+const BookingSummary = ({navigation}) => {
   // header
   const renderHeader = () => {
     return (
       <HeaderComponent row center>
         <ButtonComponent
           style={{
-            height: theme.Sizes.height / 22,
-            width: theme.Sizes.width / 14,
+            height: theme.Sizes.S14 * 2,
+            width: theme.Sizes.S14 * 2,
             marginHorizontal: theme.Sizes.S14,
           }}
-          // onPress
-        >
+          onPress={() => navigation.goBack()}>
           <MaterialIcons
-            name='keyboard-arrow-left'
+            name="keyboard-arrow-left"
             size={moderateScale(24)}
             color={theme.Colors.white}
           />
@@ -37,8 +36,7 @@ const BookingSummary = ({ navigation }) => {
             ...theme.Fonts.fontSemiBold,
             fontSize: theme.Sizes.F14,
             color: theme.Colors.white,
-          }}
-        >
+          }}>
           Booking Summary
         </Text>
       </HeaderComponent>
@@ -54,8 +52,7 @@ const BookingSummary = ({ navigation }) => {
         middle
         style={{
           marginVertical: theme.Sizes.S10 / 2,
-        }}
-      >
+        }}>
         <Card
           shadow
           style={{
@@ -63,16 +60,14 @@ const BookingSummary = ({ navigation }) => {
             height: theme.Sizes.height / 6,
             borderRadius: theme.Sizes.S10,
             marginTop: theme.Sizes.S10 * 1.5,
-          }}
-        >
+          }}>
           <Container row>
             <Container>
               <Text
                 style={{
                   ...theme.Fonts.fontBold,
                   fontSize: theme.Sizes.F14,
-                }}
-              >
+                }}>
                 Booking at
               </Text>
               <Text
@@ -80,16 +75,14 @@ const BookingSummary = ({ navigation }) => {
                   ...theme.Fonts.fontSemiBold,
                   color: theme.Colors.gray,
                   marginTop: theme.Sizes.S10 / 2,
-                }}
-              >
+                }}>
                 Monday, May 24, 2021
               </Text>
               <Text
                 style={{
                   ...theme.Fonts.fontSemiBold,
                   color: theme.Colors.gray,
-                }}
-              >
+                }}>
                 02:30 PM
               </Text>
             </Container>
@@ -102,11 +95,10 @@ const BookingSummary = ({ navigation }) => {
                 height: theme.Sizes.height / 8,
                 backgroundColor: theme.Colors.gray2,
                 borderRadius: theme.Sizes.S10 / 2,
-              }}
-            >
+              }}>
               <Image
                 source={images.calendar}
-                resizeMode='contain'
+                resizeMode="contain"
                 style={{
                   width: theme.Sizes.width / 7,
                   height: theme.Sizes.height / 8,
@@ -131,16 +123,14 @@ const BookingSummary = ({ navigation }) => {
             height: theme.Sizes.height / 6,
             borderRadius: theme.Sizes.S10,
             marginTop: theme.Sizes.S10,
-          }}
-        >
+          }}>
           <Container row>
             <Container>
               <Text
                 style={{
                   ...theme.Fonts.fontBold,
                   fontSize: theme.Sizes.F14,
-                }}
-              >
+                }}>
                 Your Address
               </Text>
               <Text
@@ -148,8 +138,7 @@ const BookingSummary = ({ navigation }) => {
                   ...theme.Fonts.fontSemiBold,
                   color: theme.Colors.gray,
                   marginTop: theme.Sizes.S10 / 2,
-                }}
-              >
+                }}>
                 Mayfair, Saskatoon, SK S7L 1V6, Canada
               </Text>
             </Container>
@@ -162,11 +151,10 @@ const BookingSummary = ({ navigation }) => {
                 height: theme.Sizes.height / 8,
                 backgroundColor: theme.Colors.gray2,
                 borderRadius: theme.Sizes.S10 / 2,
-              }}
-            >
+              }}>
               <Image
                 source={images.location_pin}
-                resizeMode='contain'
+                resizeMode="contain"
                 style={{
                   width: theme.Sizes.width / 8,
                   height: theme.Sizes.height / 8,

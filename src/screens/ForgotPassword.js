@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {Keyboard, StyleSheet, Text} from 'react-native';
 import {theme} from '../constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ButtonComponent, Container, TextInputComponent} from '../components';
@@ -10,6 +10,10 @@ const ForgotPassword = ({navigation}) => {
 
   const emailInputHandler = inputText => {
     setEmail(inputText);
+  };
+
+  const submit = () => {
+    Keyboard.dismiss();
   };
 
   //   inputs
@@ -32,6 +36,7 @@ const ForgotPassword = ({navigation}) => {
             onChangeText={emailInputHandler}
             placeholder="please enter email"
             placeholderTextColor={theme.Colors.gray}
+            onSubmitEditing={submit}
           />
         </Container>
 
@@ -50,6 +55,23 @@ const ForgotPassword = ({navigation}) => {
               <Text
                 style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
                 Reset Password
+              </Text>
+            </ButtonComponent>
+          </Container>
+
+          <Container
+            flex={false}
+            style={{
+              overflow: 'hidden',
+              borderRadius: theme.Sizes.radius / 5,
+              marginTop: theme.Sizes.S14,
+            }}>
+            <ButtonComponent
+              style={{height: theme.Sizes.height / 14}}
+              onPress={() => navigation.goBack()}>
+              <Text
+                style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+                Go Back
               </Text>
             </ButtonComponent>
           </Container>

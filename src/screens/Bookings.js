@@ -1,12 +1,13 @@
 import React from 'react';
-import { Image, StyleSheet, Text } from 'react-native';
-import { images, theme } from '../constants';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Card, Container, HeaderComponent } from '../components';
+import {Image, StyleSheet, Text} from 'react-native';
+import {images, theme} from '../constants';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {Card, Container, HeaderComponent} from '../components';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { moderateScale } from 'react-native-size-matters';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import {moderateScale} from 'react-native-size-matters';
 
-const Bookings = ({ navigation }) => {
+const Bookings = ({navigation}) => {
   // Header
   const renderHeader = () => {
     return (
@@ -16,8 +17,7 @@ const Bookings = ({ navigation }) => {
             ...theme.Fonts.fontSemiBold,
             fontSize: theme.Sizes.F14,
             color: theme.Colors.white,
-          }}
-        >
+          }}>
           Bookings
         </Text>
       </HeaderComponent>
@@ -32,115 +32,119 @@ const Bookings = ({ navigation }) => {
         <Card
           shadow
           style={{
-            width: theme.Sizes.width / 1.1,
-            height: theme.Sizes.height / 5,
+            width: theme.Sizes.width / 1.12,
+            height: theme.Sizes.height / 5.5,
             borderRadius: theme.Sizes.S10,
             borderLeftWidth: theme.Sizes.S10,
             borderColor: theme.Colors.orange,
             marginVertical: theme.Sizes.S14,
-          }}
-        >
-          <Container>
-            <Container row center>
-              {/* Profile Image */}
-              <Container flex={false} style={{ marginRight: theme.Sizes.S10 }}>
-                <Image
-                  source={images.profile}
-                  resizeMode='contain'
-                  style={{
-                    width: theme.Sizes.width / 5,
-                    height: theme.Sizes.height / 5,
-                  }}
-                />
-              </Container>
+          }}>
+          <Container row>
+            {/* Profile Image */}
+            <Container
+              center
+              middle
+              flex={false}
+              style={{
+                marginRight: theme.Sizes.S14,
+              }}>
+              <Image
+                source={images.profile}
+                resizeMode="contain"
+                style={{
+                  width: theme.Sizes.S14 * 6.7,
+                  height: theme.Sizes.S14 * 6.7,
+                }}
+              />
+            </Container>
 
-              <Container>
-                {/* Name */}
-                <Container flex={false} row center>
+            <Container>
+              {/* Name */}
+              <Container flex={false} row>
+                <Container>
                   <Text
                     style={{
                       ...theme.Fonts.fontBold,
                       fontSize: theme.Sizes.F14,
-                      flex: 1,
-                    }}
-                  >
+                    }}>
                     Bill Smith
                   </Text>
+                </Container>
+                <Container
+                  flex={false}
+                  center
+                  middle
+                  style={{
+                    backgroundColor: theme.Colors.green,
+                    borderRadius: theme.Sizes.radius / 10,
+                    width: theme.Sizes.S14 * 5,
+                    height: theme.Sizes.S14 * 1.1,
+                  }}>
                   <Text
                     style={{
                       ...theme.Fonts.fontSemiBold,
-                      backgroundColor: theme.Colors.green,
-                      borderRadius: theme.Sizes.radius / 10,
                       color: theme.Colors.white,
                       fontSize: theme.Sizes.F10,
-                      paddingHorizontal: theme.Sizes.S10,
-                    }}
-                  >
+                    }}>
                     In Progress
                   </Text>
                 </Container>
+              </Container>
 
-                {/* Address */}
+              {/* Address */}
+              <Container>
+                <Text
+                  style={{
+                    ...theme.Fonts.fontSemiBold,
+                    color: theme.Colors.black,
+                    marginTop: theme.Sizes.S10 / 2,
+                    fontSize: theme.Sizes.F11,
+                  }}>
+                  Mayfair, Saskatoon, SK S7L 1V6, Canada
+                </Text>
+              </Container>
+              {/* Date & Time */}
+              <Container row style={{marginTop: theme.Sizes.S10 / 2}}>
+                <Container
+                  flex={false}
+                  style={{marginRight: theme.Sizes.S10 / 2}}>
+                  <AntDesign
+                    name="calendar"
+                    size={moderateScale(20)}
+                    color={theme.Colors.orange}
+                  />
+                </Container>
                 <Container>
                   <Text
                     style={{
-                      ...theme.Fonts.fontSemiBold,
+                      ...theme.Fonts.fontRegular,
                       color: theme.Colors.black,
-                      marginTop: theme.Sizes.S10 / 2,
                       fontSize: theme.Sizes.F11,
-                    }}
-                  >
-                    Mayfair, Saskatoon, SK S7L 1V6, Canada
+                    }}>
+                    Monday, May 24, 2021
                   </Text>
-
-                  {/* Date & Time */}
-                  <Container row style={{ marginTop: theme.Sizes.S10 / 2 }}>
-                    <Image
-                      source={images.calender_icon}
-                      resizeMode='contain'
-                      style={{
-                        width: theme.Sizes.S10 * 1.8,
-                        height: theme.Sizes.S10 * 1.8,
-                        marginRight: theme.Sizes.S10 / 2,
-                      }}
-                    />
-                    <Container>
-                      <Text
-                        style={{
-                          ...theme.Fonts.fontRegular,
-                          color: theme.Colors.black,
-                          fontSize: theme.Sizes.F11,
-                        }}
-                      >
-                        Monday, May 24, 2021
-                      </Text>
-                      <Text
-                        style={{
-                          ...theme.Fonts.fontRegular,
-                          color: theme.Colors.black,
-                          fontSize: theme.Sizes.F11,
-                        }}
-                      >
-                        02:30 PM
-                      </Text>
-                    </Container>
-                  </Container>
+                  <Text
+                    style={{
+                      ...theme.Fonts.fontRegular,
+                      color: theme.Colors.black,
+                      fontSize: theme.Sizes.F11,
+                    }}>
+                    02:30 PM
+                  </Text>
                 </Container>
               </Container>
-            </Container>
-
-            {/* Arrow Icon */}
-            <Container
-              flex={false}
-              style={{
-                alignSelf: 'flex-end',
-              }}
-            >
-              <Entypo
-                name='chevron-with-circle-right'
-                size={moderateScale(24)}
-                color={theme.Colors.black}
-              />
+              {/* Arrow Icon */}
+              <Container
+                flex={false}
+                style={{
+                  alignSelf: 'flex-end',
+                }}>
+                <Entypo
+                  name="chevron-with-circle-right"
+                  size={moderateScale(22)}
+                  color={theme.Colors.black}
+                />
+              </Container>
             </Container>
           </Container>
         </Card>
@@ -149,113 +153,117 @@ const Bookings = ({ navigation }) => {
         <Card
           shadow
           style={{
-            width: theme.Sizes.width / 1.1,
-            height: theme.Sizes.height / 5,
+            width: theme.Sizes.width / 1.12,
+            height: theme.Sizes.height / 5.5,
             borderRadius: theme.Sizes.S10,
             borderLeftWidth: theme.Sizes.S10,
-          }}
-        >
-          <Container>
-            <Container row center>
-              {/* Profile Image */}
-              <Container flex={false} style={{ marginRight: theme.Sizes.S10 }}>
-                <Image
-                  source={images.profile}
-                  resizeMode='contain'
-                  style={{
-                    width: theme.Sizes.width / 5,
-                    height: theme.Sizes.height / 5,
-                  }}
-                />
-              </Container>
+          }}>
+          <Container row>
+            {/* Profile Image */}
+            <Container
+              center
+              middle
+              flex={false}
+              style={{
+                marginRight: theme.Sizes.S14,
+              }}>
+              <Image
+                source={images.profile}
+                resizeMode="contain"
+                style={{
+                  width: theme.Sizes.S14 * 6.7,
+                  height: theme.Sizes.S14 * 6.7,
+                }}
+              />
+            </Container>
 
-              <Container>
-                {/* Name */}
-                <Container flex={false} row center>
+            <Container>
+              {/* Name */}
+              <Container flex={false} row>
+                <Container>
                   <Text
                     style={{
                       ...theme.Fonts.fontBold,
                       fontSize: theme.Sizes.F14,
-                      flex: 1,
-                    }}
-                  >
-                    Wayne Longhard
+                    }}>
+                    Bill Smith
                   </Text>
+                </Container>
+                <Container
+                  flex={false}
+                  center
+                  middle
+                  style={{
+                    backgroundColor: theme.Colors.black2,
+                    borderRadius: theme.Sizes.radius / 10,
+                    width: theme.Sizes.S14 * 3,
+                    height: theme.Sizes.S14 * 1.1,
+                  }}>
                   <Text
                     style={{
                       ...theme.Fonts.fontSemiBold,
-                      backgroundColor: theme.Colors.black2,
-                      borderRadius: theme.Sizes.radius / 10,
                       color: theme.Colors.white,
                       fontSize: theme.Sizes.F10,
-                      paddingHorizontal: theme.Sizes.S10,
-                    }}
-                  >
+                    }}>
                     Done
                   </Text>
                 </Container>
+              </Container>
 
-                {/* Address */}
+              {/* Address */}
+              <Container>
+                <Text
+                  style={{
+                    ...theme.Fonts.fontSemiBold,
+                    color: theme.Colors.black,
+                    marginTop: theme.Sizes.S10 / 2,
+                    fontSize: theme.Sizes.F11,
+                  }}>
+                  Mayfair, Saskatoon, SK S7L 1V6, Canada
+                </Text>
+              </Container>
+              {/* Date & Time */}
+              <Container row style={{marginTop: theme.Sizes.S10 / 2}}>
+                <Container
+                  flex={false}
+                  style={{marginRight: theme.Sizes.S10 / 2}}>
+                  <AntDesign
+                    name="calendar"
+                    size={moderateScale(20)}
+                    color={theme.Colors.orange}
+                  />
+                </Container>
                 <Container>
                   <Text
                     style={{
-                      ...theme.Fonts.fontSemiBold,
+                      ...theme.Fonts.fontRegular,
                       color: theme.Colors.black,
-                      marginTop: theme.Sizes.S10 / 2,
                       fontSize: theme.Sizes.F11,
-                    }}
-                  >
-                    Mayfair, Saskatoon, SK S7L 1V6, Canada
+                    }}>
+                    Monday, May 24, 2021
                   </Text>
-
-                  {/* Date & Time */}
-                  <Container row style={{ marginTop: theme.Sizes.S10 / 2 }}>
-                    <Image
-                      source={images.calender_icon}
-                      resizeMode='contain'
-                      style={{
-                        width: theme.Sizes.S10 * 1.8,
-                        height: theme.Sizes.S10 * 1.8,
-                        marginRight: theme.Sizes.S10 / 2,
-                      }}
-                    />
-                    <Container>
-                      <Text
-                        style={{
-                          ...theme.Fonts.fontRegular,
-                          color: theme.Colors.black,
-                          fontSize: theme.Sizes.F11,
-                        }}
-                      >
-                        Monday, May 24, 2021
-                      </Text>
-                      <Text
-                        style={{
-                          ...theme.Fonts.fontRegular,
-                          color: theme.Colors.black,
-                          fontSize: theme.Sizes.F11,
-                        }}
-                      >
-                        02:30 PM
-                      </Text>
-                    </Container>
-                  </Container>
+                  <Text
+                    style={{
+                      ...theme.Fonts.fontRegular,
+                      color: theme.Colors.black,
+                      fontSize: theme.Sizes.F11,
+                    }}>
+                    02:30 PM
+                  </Text>
                 </Container>
               </Container>
-            </Container>
-
-            {/* Arrow Icon */}
-            <Container
-              flex={false}
-              style={{
-                alignSelf: 'flex-end',
-              }}
-            >
-              <Entypo
-                name='chevron-with-circle-right'
-                size={moderateScale(24)}
-                color={theme.Colors.black}
-              />
+              {/* Arrow Icon */}
+              <Container
+                flex={false}
+                style={{
+                  alignSelf: 'flex-end',
+                }}>
+                <Entypo
+                  name="chevron-with-circle-right"
+                  size={moderateScale(22)}
+                  color={theme.Colors.black}
+                />
+              </Container>
             </Container>
           </Container>
         </Card>
