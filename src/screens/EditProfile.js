@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import React, {useState, useEffect, useRef} from 'react';
+import {View, Text, StyleSheet, Image, ScrollView, Button} from 'react-native';
 import {
   ButtonComponent,
   Container,
@@ -11,11 +11,124 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
 import Feather from 'react-native-vector-icons/Feather';
-import { images, theme } from '../constants';
-import { moderateScale } from 'react-native-size-matters';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {images, theme} from '../constants';
+import {moderateScale} from 'react-native-size-matters';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import axios from 'axios';
+import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
+import {getUserId} from '../shared/LocalStorage';
+import BottomSheet from 'reanimated-bottom-sheet';
+import Animated from 'react-native-reanimated';
 
-const EditProfile = ({ navigation }) => {
+const EditProfile = ({navigation}) => {
+  const [userId, setUserId] = useState('');
+  const [userName, setUserName] = useState(userName);
+  const [userPhoneNumber, setUserPhoneNumber] = useState(userPhoneNumber);
+  const [userAge, setUserAge] = useState(userAge);
+  const [userExperience, setUserExperience] = useState(userExperience);
+  const [userImage, setUserImage] = useState(userImage);
+
+  const sheetRef = useRef(null);
+  const animatedValue = new Animated.Value(1);
+
+  const nameInputHandler = inputText => {
+    setUserName(inputText);
+  };
+
+  const phoneNumberInputHandler = inputText => {
+    setUserPhoneNumber(inputText);
+  };
+
+  const ageInputHandler = inputText => {
+    setUserAge(inputText);
+  };
+
+  const experienceInputHandler = inputText => {
+    setUserExperience(inputText);
+  };
+
+  useEffect(() => {
+    const getUserIdFromStorage = async () => {
+      const user_id = (await getUserId()).toString();
+      setUserId(user_id);
+    };
+
+    const getUserProfileData = async () => {
+      const result = await axios.get(
+        `https://pol.aisoftwares.co.in/get-user-profile?user_id=${userId}`,
+      );
+      const {name, phone_number, experience, age, user_image} =
+        result.data.user;
+      if (result.data.success === 'true') {
+        setUserName(name);
+        setUserPhoneNumber(phone_number);
+        setUserAge(age);
+        setUserExperience(experience);
+        setUserImage(user_image);
+      }
+    };
+
+    getUserIdFromStorage();
+    getUserProfileData();
+  }, [userId]);
+
+  const openCamera = () => {
+    launchCamera(
+      {
+        mediaType: 'photo',
+        quality: 1,
+      },
+      res => {
+        if (res.didCancel) {
+          alert('cancelled');
+        } else if (res.errorCode) {
+          console.log(res.errorCode);
+        } else {
+          res.assets.map(resp => setUserImage(resp.uri));
+          sheetRef.current.snapTo(1);
+        }
+      },
+    );
+  };
+
+  const openGallery = () => {
+    launchImageLibrary(
+      {
+        mediaType: 'photo',
+        quality: 1,
+      },
+      res => {
+        if (res.didCancel) {
+          alert('cancelled');
+        } else if (res.errorCode) {
+          console.log(res.errorCode);
+        } else {
+          sheetRef.current.snapTo(1);
+          console.log(res.assets);
+        }
+      },
+    );
+  };
+
+  const saveProfileData = async () => {
+    const data = {
+      user_id: userId,
+      name: userName,
+      phone_number: userPhoneNumber,
+      age: userAge,
+      experience: userExperience,
+      user_image: userImage,
+    };
+    const result = await axios.post(
+      'https://pol.aisoftwares.co.in/save-user-profile',
+      data,
+    );
+    if (result.data.success === 'true') {
+      console.log(result.data);
+      navigation.goBack();
+    }
+  };
+
   const renderHeader = () => {
     return (
       <HeaderComponent row center middle>
@@ -25,8 +138,7 @@ const EditProfile = ({ navigation }) => {
               ...theme.Fonts.fontSemiBold,
               fontSize: theme.Sizes.F14,
               color: theme.Colors.white,
-            }}
-          >
+            }}>
             Edit Profile
           </Text>
         </Container>
@@ -36,18 +148,16 @@ const EditProfile = ({ navigation }) => {
             overflow: 'hidden',
             marginHorizontal: theme.Sizes.S10,
             borderRadius: theme.Sizes.radius / 7,
-          }}
-        >
+          }}>
           <ButtonComponent
             style={{
               backgroundColor: theme.Colors.white,
-              width: theme.Sizes.width / 14,
-              height: theme.Sizes.height / 24,
+              width: theme.Sizes.S14 * 2,
+              height: theme.Sizes.S14 * 2,
             }}
-            onPress={() => navigation.goBack()}
-          >
+            onPress={saveProfileData}>
             <FontAwesome5
-              name='check'
+              name="check"
               size={moderateScale(18)}
               color={theme.Colors.orange}
             />
@@ -65,60 +175,58 @@ const EditProfile = ({ navigation }) => {
           center
           middle
           row
-          style={{ marginTop: theme.Sizes.S14 }}
-        >
+          style={{marginTop: theme.Sizes.S14}}>
           <Image
-            source={images.profile}
+            source={{uri: userImage}}
             style={{
-              width: theme.Sizes.width / 4,
-              height: theme.Sizes.height / 6.7,
+              width: theme.Sizes.S14 * moderateScale(6.7),
+              height: theme.Sizes.S14 * moderateScale(6.7),
+              borderRadius: theme.Sizes.radius * 2,
             }}
           />
           <Container
             flex={false}
             style={{
               overflow: 'hidden',
+              position: 'absolute',
               borderRadius: theme.Sizes.radius,
-              borderWidth: 4,
+              borderWidth: moderateScale(4),
               borderColor: theme.Colors.orange,
-              right: theme.Sizes.S14 * 2,
-              top: theme.Sizes.S14 * 2.5,
-            }}
-          >
+              left: theme.Sizes.S14 * moderateScale(4.6),
+              top: theme.Sizes.S14 * moderateScale(4.8),
+            }}>
             <ButtonComponent
               style={{
-                width: theme.Sizes.width / 16,
-                height: theme.Sizes.height / 26,
+                width: theme.Sizes.S14 * 1.6,
+                height: theme.Sizes.S14 * 1.6,
                 backgroundColor: theme.Colors.white,
               }}
-              onPress={() => alert('change profile picture')}
-            >
+              onPress={() => sheetRef.current.snapTo(0)}>
               <FontAwesome5
-                name='pen'
-                size={moderateScale(12)}
+                name="pen"
+                size={moderateScale(14)}
                 color={theme.Colors.orange}
               />
             </ButtonComponent>
           </Container>
         </Container>
+
         <Container flex={false} center middle>
           <Text
             style={{
               ...theme.Fonts.fontSemiBold,
               marginTop: theme.Sizes.S12,
-            }}
-          >
+            }}>
             Member Since
           </Text>
           <Text
             style={{
               ...theme.Fonts.fontSemiBold,
-            }}
-          >
+            }}>
             10/04/2018
           </Text>
           <Entypo
-            name='star'
+            name="star"
             size={moderateScale(18)}
             color={theme.Colors.yellow}
           />
@@ -133,8 +241,8 @@ const EditProfile = ({ navigation }) => {
         flex={false}
         style={{
           marginHorizontal: theme.Sizes.S14 * 1.2,
-        }}
-      >
+          marginBottom: theme.Sizes.S14,
+        }}>
         {/* Name */}
         <Container flex={false}>
           <Text
@@ -142,24 +250,22 @@ const EditProfile = ({ navigation }) => {
               ...theme.Fonts.fontSemiBold,
               fontSize: theme.Sizes.F11,
               color: theme.Colors.gray,
-            }}
-          >
+            }}>
             Name
           </Text>
-          <Text
+          <TextInputComponent
             style={{
               ...theme.Fonts.fontBold,
-              fontSize: theme.Sizes.F13,
-              borderColor: theme.Colors.gray3,
-              marginTop: theme.Sizes.S10,
+              fontSize: theme.Sizes.F16,
+              letterSpacing: moderateScale(0.5),
+              borderWidth: 0,
+              borderBottomWidth: moderateScale(1),
+              borderColor: theme.Colors.gray,
             }}
-          >
-            Wayne Gates
-          </Text>
+            value={userName}
+            onChangeText={nameInputHandler}
+          />
         </Container>
-
-        {/* Horizontal Line */}
-        <HorizontalLine />
 
         {/* Phone Number */}
         <Container flex={false}>
@@ -168,24 +274,22 @@ const EditProfile = ({ navigation }) => {
               ...theme.Fonts.fontSemiBold,
               fontSize: theme.Sizes.F11,
               color: theme.Colors.gray,
-            }}
-          >
+            }}>
             Phone Number
           </Text>
-          <Text
+          <TextInputComponent
             style={{
               ...theme.Fonts.fontBold,
-              fontSize: theme.Sizes.F13,
-              borderColor: theme.Colors.gray3,
-              marginTop: theme.Sizes.S10,
+              fontSize: theme.Sizes.F16,
+              letterSpacing: moderateScale(0.5),
+              borderWidth: 0,
+              borderBottomWidth: moderateScale(1),
+              borderColor: theme.Colors.gray,
             }}
-          >
-            869-465-8954
-          </Text>
+            value={userPhoneNumber}
+            onChangeText={phoneNumberInputHandler}
+          />
         </Container>
-
-        {/* Horizontal Line */}
-        <HorizontalLine />
 
         {/* Age */}
         <Container flex={false}>
@@ -194,24 +298,22 @@ const EditProfile = ({ navigation }) => {
               ...theme.Fonts.fontSemiBold,
               fontSize: theme.Sizes.F11,
               color: theme.Colors.gray,
-            }}
-          >
+            }}>
             Age
           </Text>
-          <Text
+          <TextInputComponent
             style={{
               ...theme.Fonts.fontBold,
-              fontSize: theme.Sizes.F13,
-              borderColor: theme.Colors.gray3,
-              marginTop: theme.Sizes.S10,
+              fontSize: theme.Sizes.F16,
+              letterSpacing: moderateScale(0.5),
+              borderWidth: 0,
+              borderBottomWidth: moderateScale(1),
+              borderColor: theme.Colors.gray,
             }}
-          >
-            32 years
-          </Text>
+            value={userAge}
+            onChangeText={ageInputHandler}
+          />
         </Container>
-
-        {/* Horizontal Line */}
-        <HorizontalLine />
 
         {/* Experience */}
         <Container flex={false}>
@@ -220,31 +322,137 @@ const EditProfile = ({ navigation }) => {
               ...theme.Fonts.fontSemiBold,
               fontSize: theme.Sizes.F11,
               color: theme.Colors.gray,
-            }}
-          >
+            }}>
             Experience
           </Text>
-          <Text
+          <TextInputComponent
             style={{
               ...theme.Fonts.fontBold,
-              fontSize: theme.Sizes.F13,
-              borderColor: theme.Colors.gray3,
-              marginTop: theme.Sizes.S10,
+              fontSize: theme.Sizes.F16,
+              letterSpacing: moderateScale(0.5),
+              borderWidth: 0,
+              borderBottomWidth: moderateScale(1),
+              borderColor: theme.Colors.gray,
             }}
-          >
-            Grass cutter, Plumber
-          </Text>
+            value={userExperience}
+            onChangeText={experienceInputHandler}
+          />
         </Container>
       </Container>
     );
   };
 
+  const renderBottomSheetContents = () => (
+    <Container
+      flex={false}
+      color="white"
+      style={{marginTop: theme.Sizes.S14 * 2, height: moderateScale(200)}}>
+      <Container flex={false} center>
+        <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
+          Upload Your Profile Picture
+        </Text>
+      </Container>
+
+      <Container
+        flex={false}
+        style={{
+          overflow: 'hidden',
+          marginTop: theme.Sizes.S10,
+          marginHorizontal: theme.Sizes.S14 * 4,
+          borderRadius: theme.Sizes.radius / 3,
+        }}>
+        <ButtonComponent
+          style={{height: theme.Sizes.S14 * 2.3}}
+          onPress={openCamera}>
+          <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+            Take a Photo
+          </Text>
+        </ButtonComponent>
+      </Container>
+
+      <Container
+        flex={false}
+        style={{
+          overflow: 'hidden',
+          marginTop: theme.Sizes.S10,
+          marginHorizontal: theme.Sizes.S14 * 4,
+          borderRadius: theme.Sizes.radius / 3,
+        }}>
+        <ButtonComponent
+          style={{height: theme.Sizes.S14 * 2.3}}
+          onPress={openGallery}>
+          <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+            Choose from Gallery
+          </Text>
+        </ButtonComponent>
+      </Container>
+
+      <Container
+        flex={false}
+        style={{
+          overflow: 'hidden',
+          marginTop: theme.Sizes.S10,
+          marginHorizontal: theme.Sizes.S14 * 4,
+          borderRadius: theme.Sizes.radius / 3,
+        }}>
+        <ButtonComponent
+          style={{height: theme.Sizes.S14 * 2.3}}
+          onPress={() => sheetRef.current.snapTo(1)}>
+          <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+            Cancel
+          </Text>
+        </ButtonComponent>
+      </Container>
+    </Container>
+  );
+
+  const renderBottomSheet = () => {
+    return (
+      <BottomSheet
+        ref={sheetRef}
+        snapPoints={[moderateScale(200), 0]}
+        renderContent={renderBottomSheetContents}
+        initialSnap={1}
+        callbackNode={animatedValue}
+        enabledGestureInteraction={true}
+      />
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
-      {renderHeader()}
-      {renderProfile()}
-      {renderData()}
+      <Animated.View
+        style={{
+          opacity: Animated.add(0.1, Animated.multiply(animatedValue, 1.0)),
+        }}>
+        {renderHeader()}
+        <ScrollView>
+          {renderProfile()}
+          {renderData()}
+        </ScrollView>
+      </Animated.View>
+      {renderBottomSheet()}
     </SafeAreaView>
+    // <>
+    //   <View
+    //     style={{
+    //       flex: 1,
+    //       backgroundColor: 'green',
+    //       alignItems: 'center',
+    //       justifyContent: 'center',
+    //     }}>
+    //     <Button
+    //       title="Open Bottom Sheet"
+    //       onPress={() => sheetRef.current.snapTo(0)}
+    //     />
+    //   </View>
+    //   <BottomSheet
+    //     ref={sheetRef}
+    //     snapPoints={[200, 0, 0]}
+    //     borderRadius={20}
+    //     renderContent={renderContent}
+    //   />
+    // </>
   );
 };
 
