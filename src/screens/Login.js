@@ -1,15 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Keyboard, StyleSheet, Text} from 'react-native';
 import {theme} from '../constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {ButtonComponent, Container, TextInputComponent} from '../components';
 import {moderateScale} from 'react-native-size-matters';
+import {storeUserId} from '../shared/LocalStorage';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
 
 const Login = ({navigation}) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const emailInputHandler = inputText => {
     setEmail(inputText);
@@ -74,9 +75,9 @@ const Login = ({navigation}) => {
           text2: 'logged in successfully',
           visibilityTime: 300,
         });
-        // setTimeout(() => {
+        const user_id = result.data.user_data.id;
+        storeUserId(JSON.stringify(user_id));
         navigation.navigate('Home');
-        // }, 500);
       } else {
         Toast.show({
           topOffset: moderateScale(60),
