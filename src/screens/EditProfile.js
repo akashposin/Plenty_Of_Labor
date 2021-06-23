@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {View, Text, StyleSheet, Image, ScrollView, Button} from 'react-native';
 import {
   ButtonComponent,
@@ -19,6 +19,7 @@ import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {getUserId} from '../shared/LocalStorage';
 import BottomSheet from 'reanimated-bottom-sheet';
 import Animated from 'react-native-reanimated';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const EditProfile = ({navigation}) => {
   const [userId, setUserId] = useState('');
@@ -48,12 +49,18 @@ const EditProfile = ({navigation}) => {
   };
 
   useEffect(() => {
-    const getUserIdFromStorage = async () => {
-      const user_id = (await getUserId()).toString();
-      setUserId(user_id);
-    };
+    getUserIdFromStorage();
+    getUserProfileData();
+    getCategories();
+  }, [getUserProfileData]);
 
-    const getUserProfileData = async () => {
+  const getUserIdFromStorage = async () => {
+    const user_id = (await getUserId()).toString();
+    setUserId(user_id);
+  };
+
+  const getUserProfileData = useCallback(() => {
+    async () => {
       const result = await axios.get(
         `https://pol.aisoftwares.co.in/get-user-profile?user_id=${userId}`,
       );
@@ -67,9 +74,6 @@ const EditProfile = ({navigation}) => {
         setUserImage(user_image);
       }
     };
-
-    getUserIdFromStorage();
-    getUserProfileData();
   }, [userId]);
 
   const openCamera = () => {
@@ -342,12 +346,103 @@ const EditProfile = ({navigation}) => {
     );
   };
 
+  const [openCategory, setOpenCategory] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+
+  const [openSubCategory, setOpenSubCategory] = useState(false);
+  const [subCategories, setSubCategories] = useState([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+  const [mainCategories, setmainCategories] = useState([]);
+
+  const onOpenCategories = useCallback(() => {
+    setOpenSubCategory(false);
+  }, []);
+
+  const onOpenSubCategories = useCallback(() => {
+    setOpenCategory(false);
+  }, []);
+
+  const getCategories = async () => {
+    const result = await axios.get(
+      'https://pol.aisoftwares.co.in/get-categories',
+    );
+    const getCategory = result.data.categories.map(cat => {
+      const item = {
+        label: cat.category_name,
+        value: cat.category_name,
+      };
+      return item;
+    });
+    setCategories(getCategory);
+    setmainCategories(result.data.categories);
+  };
+
+  const renderCategories = () => {
+    return (
+      <Container flex={false} style={{height: 250, marginHorizontal: 50}}>
+        <DropDownPicker
+          open={openCategory}
+          onOpen={onOpenCategories}
+          value={selectedCategory}
+          items={categories}
+          setOpen={setOpenCategory}
+          setValue={setSelectedCategory}
+          setItems={setCategories}
+          placeholder="Select Category"
+          onChangeValue={getSubCategories}
+          zIndex={2}
+          zIndexInverse={2}
+        />
+      </Container>
+    );
+  };
+
+  const getSubCategories = async data => {
+    const categoryId = mainCategories
+      .filter(res => res.category_name === data)
+      .map(obj => obj.id);
+
+    const result = await axios.get(
+      `https://pol.aisoftwares.co.in/get-sub-categories?cat_id=${categoryId}`,
+    );
+    const getSubCategory = result.data.categories.map(cat => {
+      const item = {
+        label: cat.category_name,
+        value: cat.category_name,
+      };
+      return item;
+    });
+    setSubCategories(getSubCategory);
+  };
+
+  const renderSubCategories = () => {
+    return (
+      <Container flex={false} style={{height: 250, marginHorizontal: 50}}>
+        <DropDownPicker
+          open={openSubCategory}
+          onOpen={onOpenSubCategories}
+          value={selectedSubCategory}
+          items={subCategories}
+          setOpen={setOpenSubCategory}
+          setValue={setSelectedSubCategory}
+          setItems={setSubCategories}
+          placeholder="Select Sub Category"
+          zIndex={1}
+          zIndexInverse={1}
+        />
+      </Container>
+    );
+  };
+
   const renderBottomSheetContents = () => (
     <Container
       flex={false}
       color="white"
+      shadow
+      radius
       style={{marginTop: theme.Sizes.S14 * 2, height: moderateScale(200)}}>
-      <Container flex={false} center>
+      <Container flex={false} center style={{marginTop: theme.Sizes.S14}}>
         <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
           Upload Your Profile Picture
         </Text>
@@ -430,29 +525,11 @@ const EditProfile = ({navigation}) => {
           {renderProfile()}
           {renderData()}
         </ScrollView>
+        {renderCategories()}
+        {renderSubCategories()}
       </Animated.View>
       {renderBottomSheet()}
     </SafeAreaView>
-    // <>
-    //   <View
-    //     style={{
-    //       flex: 1,
-    //       backgroundColor: 'green',
-    //       alignItems: 'center',
-    //       justifyContent: 'center',
-    //     }}>
-    //     <Button
-    //       title="Open Bottom Sheet"
-    //       onPress={() => sheetRef.current.snapTo(0)}
-    //     />
-    //   </View>
-    //   <BottomSheet
-    //     ref={sheetRef}
-    //     snapPoints={[200, 0, 0]}
-    //     borderRadius={20}
-    //     renderContent={renderContent}
-    //   />
-    // </>
   );
 };
 
