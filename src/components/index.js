@@ -8,6 +8,7 @@ import HeaderComponent from './HeaderComponent';
 import FooterComponent from './FooterComponent';
 import SearchBarComponent from './SearchBarComponent';
 import Map from './Map';
+import ModalComponent from './ModalComponent';
 
 export {
   Container,
@@ -20,4 +21,5 @@ export {
   FooterComponent,
   SearchBarComponent,
   Map,
+  ModalComponent,
 };

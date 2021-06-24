@@ -1,18 +1,18 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { moderateScale } from 'react-native-size-matters';
+import {StyleSheet} from 'react-native';
+import {moderateScale} from 'react-native-size-matters';
 import Container from './Container';
-import { theme } from '../constants';
+import {theme} from '../constants';
 
-const HorizontalLine = (props) => {
-  const { style } = props;
+const HorizontalLine = props => {
+  const {style, color} = props;
 
   const hLineStyles = [styles.container, style];
   return (
     <Container
       flex={false}
       style={hLineStyles}
-      color='gray3'
+      color={!color ? 'gray3' : color}
       {...props.props}
     />
   );

@@ -14,6 +14,7 @@ const TextInputComponent = props => {
     placeholderTextColor,
     onSubmitEditing,
     secureTextEntry,
+    editable,
   } = props;
 
   const inputStyles = [styles.input, style];
@@ -25,6 +26,7 @@ const TextInputComponent = props => {
       style={inputStyles}
       underlineColorAndroid="transparent"
       onChangeText={onChangeText}
+      editable={editable}
       value={value}
       keyboardType={keyboardType}
       placeholder={placeholder}

@@ -1,14 +1,13 @@
 import React from 'react';
-import { KeyboardAvoidingView, Platform } from 'react-native';
-import { theme } from '../constants';
+import {KeyboardAvoidingView, Platform} from 'react-native';
+import {theme} from '../constants';
 
-const KeyBoardAvoidingViewComponent = (props) => {
+const KeyBoardAvoidingViewComponent = props => {
   return (
     <KeyboardAvoidingView
-      behavior={Platform.OS === 'android' ? 'padding' : 'position'}
+      behavior={Platform.OS === 'android' ? 'position' : 'padding'}
       keyboardVerticalOffset={theme.Sizes.S14 * 2}
-      {...props}
-    >
+      {...props}>
       {props.children}
     </KeyboardAvoidingView>
   );
