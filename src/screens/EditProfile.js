@@ -1,11 +1,21 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
-import {View, Text, StyleSheet, Image, ScrollView, Button} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  ScrollView,
+  Button,
+  Pressable,
+} from 'react-native';
 import {
   ButtonComponent,
   Container,
   HeaderComponent,
   HorizontalLine,
   TextInputComponent,
+  ModalComponent,
+  KeyBoardAvoidingViewComponent,
 } from '../components';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -22,15 +32,24 @@ import Animated from 'react-native-reanimated';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const EditProfile = ({navigation}) => {
-  const [userId, setUserId] = useState('');
-  const [userName, setUserName] = useState(userName);
-  const [userPhoneNumber, setUserPhoneNumber] = useState(userPhoneNumber);
-  const [userAge, setUserAge] = useState(userAge);
-  const [userExperience, setUserExperience] = useState(userExperience);
+  const [userName, setUserName] = useState('');
+  const [userPhoneNumber, setUserPhoneNumber] = useState('');
+  const [userAge, setUserAge] = useState('');
+  const [userExperience, setUserExperience] = useState('');
   const [userImage, setUserImage] = useState(userImage);
+  const [visibleProfileImage, setVisibleProfileImageModal] = useState(false);
+  const [visibleExperienceModal, setVisibleExperienceModal] = useState(false);
+  const [mainCategories, setmainCategories] = useState([]);
+  const [openCategory, setOpenCategory] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
-  const sheetRef = useRef(null);
-  const animatedValue = new Animated.Value(1);
+  const [openSubCategory, setOpenSubCategory] = useState(false);
+  const [subCategories, setSubCategories] = useState([]);
+  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
+
+  // const sheetRef = useRef(null);
+  // const animatedValue = new Animated.Value(1);
 
   const nameInputHandler = inputText => {
     setUserName(inputText);
@@ -44,37 +63,34 @@ const EditProfile = ({navigation}) => {
     setUserAge(inputText);
   };
 
-  const experienceInputHandler = inputText => {
-    setUserExperience(inputText);
-  };
+  const onOpenCategories = useCallback(() => {
+    setOpenSubCategory(false);
+  }, []);
+
+  const onOpenSubCategories = useCallback(() => {
+    setOpenCategory(false);
+  }, []);
 
   useEffect(() => {
-    getUserIdFromStorage();
     getUserProfileData();
     getCategories();
-  }, [getUserProfileData]);
+  }, []);
 
-  const getUserIdFromStorage = async () => {
-    const user_id = (await getUserId()).toString();
-    setUserId(user_id);
+  const getUserProfileData = async () => {
+    const userId = (await getUserId()).toString();
+
+    const result = await axios.get(
+      `https://pol.aisoftwares.co.in/get-user-profile?user_id=${userId}`,
+    );
+    const {name, phone_number, experience, age, user_image} = result.data.user;
+    if (result.data.success === 'true') {
+      setUserName(name);
+      setUserPhoneNumber(phone_number);
+      setUserAge(age);
+      setUserExperience(experience);
+      setUserImage(user_image);
+    }
   };
-
-  const getUserProfileData = useCallback(() => {
-    async () => {
-      const result = await axios.get(
-        `https://pol.aisoftwares.co.in/get-user-profile?user_id=${userId}`,
-      );
-      const {name, phone_number, experience, age, user_image} =
-        result.data.user;
-      if (result.data.success === 'true') {
-        setUserName(name);
-        setUserPhoneNumber(phone_number);
-        setUserAge(age);
-        setUserExperience(experience);
-        setUserImage(user_image);
-      }
-    };
-  }, [userId]);
 
   const openCamera = () => {
     launchCamera(
@@ -84,12 +100,12 @@ const EditProfile = ({navigation}) => {
       },
       res => {
         if (res.didCancel) {
-          alert('cancelled');
+          setVisibleProfileImageModal(false);
         } else if (res.errorCode) {
           console.log(res.errorCode);
         } else {
           res.assets.map(resp => setUserImage(resp.uri));
-          sheetRef.current.snapTo(1);
+          setVisibleProfileImageModal(false);
         }
       },
     );
@@ -103,11 +119,12 @@ const EditProfile = ({navigation}) => {
       },
       res => {
         if (res.didCancel) {
-          alert('cancelled');
+          setVisibleProfileImageModal(false);
         } else if (res.errorCode) {
           console.log(res.errorCode);
         } else {
-          sheetRef.current.snapTo(1);
+          setVisibleProfileImageModal(false);
+
           console.log(res.assets);
         }
       },
@@ -115,20 +132,30 @@ const EditProfile = ({navigation}) => {
   };
 
   const saveProfileData = async () => {
-    const data = {
-      user_id: userId,
+    const userId = (await getUserId()).toString();
+
+    let formData = new FormData();
+    formData.append('user_id', userId);
+    formData.append('name', userName);
+    formData.append('phone_number', userPhoneNumber);
+    formData.append('age', userAge);
+    formData.append('user_image', {
+      uri: userImage,
       name: userName,
-      phone_number: userPhoneNumber,
-      age: userAge,
-      experience: userExperience,
-      user_image: userImage,
+      type: 'image/jpg',
+    });
+    formData.append('experience', userExperience);
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     };
     const result = await axios.post(
       'https://pol.aisoftwares.co.in/save-user-profile',
-      data,
+      formData,
+      config,
     );
     if (result.data.success === 'true') {
-      console.log(result.data);
       navigation.goBack();
     }
   };
@@ -205,7 +232,7 @@ const EditProfile = ({navigation}) => {
                 height: theme.Sizes.S14 * 1.6,
                 backgroundColor: theme.Colors.white,
               }}
-              onPress={() => sheetRef.current.snapTo(0)}>
+              onPress={() => setVisibleProfileImageModal(true)}>
               <FontAwesome5
                 name="pen"
                 size={moderateScale(14)}
@@ -237,6 +264,12 @@ const EditProfile = ({navigation}) => {
         </Container>
       </Container>
     );
+  };
+
+  const submitCategories = () => {
+    const combinedCategories = `${selectedSubCategory}, ${selectedCategory}`;
+    setUserExperience(combinedCategories);
+    setVisibleExperienceModal(false);
   };
 
   const renderData = () => {
@@ -329,7 +362,7 @@ const EditProfile = ({navigation}) => {
             }}>
             Experience
           </Text>
-          <TextInputComponent
+          {/* <TextInputComponent
             style={{
               ...theme.Fonts.fontBold,
               fontSize: theme.Sizes.F16,
@@ -340,28 +373,25 @@ const EditProfile = ({navigation}) => {
             }}
             value={userExperience}
             onChangeText={experienceInputHandler}
-          />
+            editable={false}
+          /> */}
+          <Pressable onPress={() => setVisibleExperienceModal(true)}>
+            <Text
+              style={{
+                ...theme.Fonts.fontBold,
+                fontSize: theme.Sizes.F14,
+                marginTop: theme.Sizes.S14 * 1.5,
+                paddingLeft: theme.Sizes.S10 / 2.5,
+              }}>
+              {userExperience}
+            </Text>
+          </Pressable>
+
+          <HorizontalLine color="black2" />
         </Container>
       </Container>
     );
   };
-
-  const [openCategory, setOpenCategory] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState(null);
-
-  const [openSubCategory, setOpenSubCategory] = useState(false);
-  const [subCategories, setSubCategories] = useState([]);
-  const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-  const [mainCategories, setmainCategories] = useState([]);
-
-  const onOpenCategories = useCallback(() => {
-    setOpenSubCategory(false);
-  }, []);
-
-  const onOpenSubCategories = useCallback(() => {
-    setOpenCategory(false);
-  }, []);
 
   const getCategories = async () => {
     const result = await axios.get(
@@ -380,7 +410,12 @@ const EditProfile = ({navigation}) => {
 
   const renderCategories = () => {
     return (
-      <Container flex={false} style={{height: 250, marginHorizontal: 50}}>
+      <Container
+        flex={false}
+        style={{
+          marginHorizontal: theme.Sizes.S14 * 3,
+          marginVertical: theme.Sizes.S14,
+        }}>
         <DropDownPicker
           open={openCategory}
           onOpen={onOpenCategories}
@@ -418,7 +453,12 @@ const EditProfile = ({navigation}) => {
 
   const renderSubCategories = () => {
     return (
-      <Container flex={false} style={{height: 250, marginHorizontal: 50}}>
+      <Container
+        flex={false}
+        style={{
+          marginHorizontal: theme.Sizes.S14 * 3,
+          marginBottom: theme.Sizes.S14,
+        }}>
         <DropDownPicker
           open={openSubCategory}
           onOpen={onOpenSubCategories}
@@ -428,6 +468,7 @@ const EditProfile = ({navigation}) => {
           setValue={setSelectedSubCategory}
           setItems={setSubCategories}
           placeholder="Select Sub Category"
+          maxHeight={moderateScale(140)}
           zIndex={1}
           zIndexInverse={1}
         />
@@ -435,100 +476,219 @@ const EditProfile = ({navigation}) => {
     );
   };
 
-  const renderBottomSheetContents = () => (
-    <Container
-      flex={false}
-      color="white"
-      shadow
-      radius
-      style={{marginTop: theme.Sizes.S14 * 2, height: moderateScale(200)}}>
-      <Container flex={false} center style={{marginTop: theme.Sizes.S14}}>
-        <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
-          Upload Your Profile Picture
-        </Text>
-      </Container>
+  // const renderBottomSheetContents = () => (
+  //   <Container
+  //     flex={false}
+  //     color="white"
+  //     shadow
+  //     radius
+  //     style={{marginTop: theme.Sizes.S14 * 2, height: moderateScale(200)}}>
+  //     <Container flex={false} center style={{marginTop: theme.Sizes.S14}}>
+  //       <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
+  //         Upload Your Profile Picture
+  //       </Text>
+  //     </Container>
 
-      <Container
-        flex={false}
-        style={{
-          overflow: 'hidden',
-          marginTop: theme.Sizes.S10,
-          marginHorizontal: theme.Sizes.S14 * 4,
-          borderRadius: theme.Sizes.radius / 3,
-        }}>
-        <ButtonComponent
-          style={{height: theme.Sizes.S14 * 2.3}}
-          onPress={openCamera}>
-          <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
-            Take a Photo
-          </Text>
-        </ButtonComponent>
-      </Container>
+  //     <Container
+  //       flex={false}
+  //       style={{
+  //         overflow: 'hidden',
+  //         marginTop: theme.Sizes.S10,
+  //         marginHorizontal: theme.Sizes.S14 * 4,
+  //         borderRadius: theme.Sizes.radius / 3,
+  //       }}>
+  //       <ButtonComponent
+  //         style={{height: theme.Sizes.S14 * 2.3}}
+  //         onPress={openCamera}>
+  //         <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+  //           Take a Photo
+  //         </Text>
+  //       </ButtonComponent>
+  //     </Container>
 
-      <Container
-        flex={false}
-        style={{
-          overflow: 'hidden',
-          marginTop: theme.Sizes.S10,
-          marginHorizontal: theme.Sizes.S14 * 4,
-          borderRadius: theme.Sizes.radius / 3,
-        }}>
-        <ButtonComponent
-          style={{height: theme.Sizes.S14 * 2.3}}
-          onPress={openGallery}>
-          <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
-            Choose from Gallery
-          </Text>
-        </ButtonComponent>
-      </Container>
+  //     <Container
+  //       flex={false}
+  //       style={{
+  //         overflow: 'hidden',
+  //         marginTop: theme.Sizes.S10,
+  //         marginHorizontal: theme.Sizes.S14 * 4,
+  //         borderRadius: theme.Sizes.radius / 3,
+  //       }}>
+  //       <ButtonComponent
+  //         style={{height: theme.Sizes.S14 * 2.3}}
+  //         onPress={openGallery}>
+  //         <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+  //           Choose from Gallery
+  //         </Text>
+  //       </ButtonComponent>
+  //     </Container>
 
-      <Container
-        flex={false}
-        style={{
-          overflow: 'hidden',
-          marginTop: theme.Sizes.S10,
-          marginHorizontal: theme.Sizes.S14 * 4,
-          borderRadius: theme.Sizes.radius / 3,
-        }}>
-        <ButtonComponent
-          style={{height: theme.Sizes.S14 * 2.3}}
-          onPress={() => sheetRef.current.snapTo(1)}>
-          <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
-            Cancel
-          </Text>
-        </ButtonComponent>
-      </Container>
-    </Container>
-  );
+  //     <Container
+  //       flex={false}
+  //       style={{
+  //         overflow: 'hidden',
+  //         marginTop: theme.Sizes.S10,
+  //         marginHorizontal: theme.Sizes.S14 * 4,
+  //         borderRadius: theme.Sizes.radius / 3,
+  //       }}>
+  //       <ButtonComponent
+  //         style={{height: theme.Sizes.S14 * 2.3}}
+  //         onPress={() => sheetRef.current.snapTo(1)}>
+  //         <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+  //           Cancel
+  //         </Text>
+  //       </ButtonComponent>
+  //     </Container>
+  //   </Container>
+  // );
 
-  const renderBottomSheet = () => {
+  // const renderBottomSheet = () => {
+  //   return (
+  //     <BottomSheet
+  //       ref={sheetRef}
+  //       snapPoints={[moderateScale(200), 0]}
+  //       renderContent={renderBottomSheetContents}
+  //       initialSnap={1}
+  //       callbackNode={animatedValue}
+  //       enabledGestureInteraction={true}
+  //     />
+  //   );
+  // };
+
+  const renderChangeProfileImageModal = () => {
     return (
-      <BottomSheet
-        ref={sheetRef}
-        snapPoints={[moderateScale(200), 0]}
-        renderContent={renderBottomSheetContents}
-        initialSnap={1}
-        callbackNode={animatedValue}
-        enabledGestureInteraction={true}
-      />
+      <ModalComponent
+        visible={visibleProfileImage}
+        style={{height: theme.Sizes.height / 2.5}}>
+        <Container>
+          <Container
+            flex={false}
+            center
+            style={{marginTop: theme.Sizes.S14 * 2}}>
+            <Text style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F14}}>
+              Upload Your Profile Picture
+            </Text>
+          </Container>
+
+          <Container
+            flex={false}
+            style={{
+              overflow: 'hidden',
+              marginTop: theme.Sizes.S14,
+              marginHorizontal: theme.Sizes.S14 * 2,
+              borderRadius: theme.Sizes.radius / 3,
+            }}>
+            <ButtonComponent
+              style={{height: theme.Sizes.S14 * 3}}
+              onPress={openCamera}>
+              <Text
+                style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+                Take a Photo
+              </Text>
+            </ButtonComponent>
+          </Container>
+
+          <Container
+            flex={false}
+            style={{
+              overflow: 'hidden',
+              marginTop: theme.Sizes.S14,
+              marginHorizontal: theme.Sizes.S14 * 2,
+              borderRadius: theme.Sizes.radius / 3,
+            }}>
+            <ButtonComponent
+              style={{height: theme.Sizes.S14 * 3}}
+              onPress={openGallery}>
+              <Text
+                style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+                Choose from Gallery
+              </Text>
+            </ButtonComponent>
+          </Container>
+
+          <Container
+            flex={false}
+            style={{
+              overflow: 'hidden',
+              marginTop: theme.Sizes.S14,
+              marginHorizontal: theme.Sizes.S14 * 2,
+              borderRadius: theme.Sizes.radius / 3,
+            }}>
+            <ButtonComponent
+              style={{height: theme.Sizes.S14 * 3}}
+              onPress={() => setVisibleProfileImageModal(false)}>
+              <Text
+                style={{...theme.Fonts.fontBold, fontSize: theme.Sizes.F18}}>
+                Cancel
+              </Text>
+            </ButtonComponent>
+          </Container>
+        </Container>
+      </ModalComponent>
+    );
+  };
+
+  const renderExperienceModal = () => {
+    return (
+      <ModalComponent visible={visibleExperienceModal}>
+        <Container center>
+          <Text
+            style={{...theme.Fonts.fontBold, marginTop: theme.Sizes.S14 * 2}}>
+            Please Select Category and Sub-Category
+          </Text>
+          {renderCategories()}
+          {renderSubCategories()}
+
+          <Container
+            flex={false}
+            style={{
+              overflow: 'hidden',
+              borderRadius: theme.Sizes.radius / 5,
+              width: theme.Sizes.width / 1.6,
+              marginBottom: theme.Sizes.S14,
+            }}>
+            <ButtonComponent
+              style={{height: theme.Sizes.S14 * 3}}
+              onPress={submitCategories}>
+              <Text style={{fontSize: theme.Sizes.F16}}>Submit</Text>
+            </ButtonComponent>
+          </Container>
+
+          <Container
+            flex={false}
+            style={{
+              overflow: 'hidden',
+              borderRadius: theme.Sizes.radius / 5,
+              width: theme.Sizes.width / 1.6,
+            }}>
+            <ButtonComponent
+              style={{height: theme.Sizes.S14 * 3}}
+              onPress={() => setVisibleExperienceModal(false)}>
+              <Text style={{fontSize: theme.Sizes.F16}}>Cancel</Text>
+            </ButtonComponent>
+          </Container>
+        </Container>
+      </ModalComponent>
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Animated.View
+      {/* <Animated.View
         style={{
           opacity: Animated.add(0.1, Animated.multiply(animatedValue, 1.0)),
-        }}>
-        {renderHeader()}
-        <ScrollView>
+        }}> */}
+      {renderHeader()}
+      <ScrollView>
+        <KeyBoardAvoidingViewComponent>
           {renderProfile()}
           {renderData()}
-        </ScrollView>
-        {renderCategories()}
-        {renderSubCategories()}
-      </Animated.View>
-      {renderBottomSheet()}
+        </KeyBoardAvoidingViewComponent>
+      </ScrollView>
+      {/* </Animated.View> */}
+      {renderChangeProfileImageModal()}
+      {renderExperienceModal()}
+      {/* {renderBottomSheet()} */}
     </SafeAreaView>
   );
 };
