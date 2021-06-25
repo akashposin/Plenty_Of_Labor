@@ -15,12 +15,14 @@ const TextInputComponent = props => {
     onSubmitEditing,
     secureTextEntry,
     editable,
+    autoCapitalize,
   } = props;
 
   const inputStyles = [styles.input, style];
 
   return (
     <TextInput
+      autoCapitalize={!autoCapitalize ? 'none' : autoCapitalize}
       ref={refs}
       blurOnSubmit={false}
       style={inputStyles}
@@ -41,7 +43,7 @@ const TextInputComponent = props => {
 const styles = StyleSheet.create({
   input: {
     ...theme.Fonts.fontRegular,
-    height: theme.Sizes.height / 16,
+    height: theme.Sizes.S14 * 3,
     borderWidth: moderateScale(1),
     borderColor: theme.Colors.black,
     marginVertical: theme.Sizes.S10,

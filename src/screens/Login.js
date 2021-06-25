@@ -7,6 +7,7 @@ import {moderateScale} from 'react-native-size-matters';
 import {storeUserId} from '../shared/LocalStorage';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
+import isEmail from 'validator/lib/isEmail';
 
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -63,28 +64,44 @@ const Login = ({navigation}) => {
   const loginUser = async () => {
     try {
       const data = {email: email, password: password};
-      const result = await axios.post(
-        'https://pol.aisoftwares.co.in/user-logged-in',
-        data,
-      );
-      if (result.data.success === 'true') {
-        Toast.show({
-          topOffset: moderateScale(100),
-          type: 'success',
-          text1: 'Success',
-          text2: 'logged in successfully',
-          visibilityTime: 300,
-        });
-        const user_id = result.data.user_data.id;
-        storeUserId(JSON.stringify(user_id));
-        navigation.navigate('Home');
+      if (isEmail(data.email)) {
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        const result = await axios.post(
+          'https://pol.aisoftwares.co.in/user-logged-in',
+          data,
+          config,
+        );
+        if (result.data.success === 'true') {
+          Toast.show({
+            topOffset: moderateScale(100),
+            type: 'success',
+            text1: 'Success',
+            text2: 'logged in successfully',
+            visibilityTime: 300,
+          });
+          const user_id = result.data.user_data.id;
+          storeUserId(JSON.stringify(user_id));
+          navigation.navigate('Home');
+        } else {
+          Toast.show({
+            topOffset: moderateScale(60),
+            type: 'error',
+            text1: 'Error',
+            text2: 'Invalid Credentials, please try again',
+            visibilityTime: 500,
+          });
+        }
       } else {
         Toast.show({
-          topOffset: moderateScale(60),
+          topOffset: moderateScale(100),
           type: 'error',
-          text1: 'Error',
-          text2: 'Invalid Credentials, please try again',
-          visibilityTime: 500,
+          text1: 'Invalid email',
+          text2: 'Please enter a valid email',
+          visibilityTime: 1000,
         });
       }
     } catch (error) {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Keyboard, StyleSheet, Text} from 'react-native';
 import {theme} from '../constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -6,11 +6,12 @@ import {ButtonComponent, Container, TextInputComponent} from '../components';
 import {moderateScale} from 'react-native-size-matters';
 import axios from 'axios';
 import Toast from 'react-native-toast-message';
+import isEmail from 'validator/lib/isEmail';
 
 const Register = ({route, navigation}) => {
-  const [email, setEmail] = React.useState('');
-  const [password, setPassword] = React.useState('');
-  const [confirmPassword, setConfirmPassword] = React.useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const emailInputHandler = inputText => {
     setEmail(inputText);
@@ -68,7 +69,7 @@ const Register = ({route, navigation}) => {
           }}
           value={confirmPassword}
           onChangeText={confirmPasswordInputHandler}
-          placeholder="please confirm password"
+          placeholder="please enter confirm password"
           placeholderTextColor={theme.Colors.gray}
           onSubmitEditing={submit}
           secureTextEntry
@@ -80,37 +81,53 @@ const Register = ({route, navigation}) => {
   const registerUser = async () => {
     try {
       const data = {email: email, password: password};
-      const result = await axios.post(
-        'https://pol.aisoftwares.co.in/save-user',
-        data,
-      );
+      if (isEmail(data.email)) {
+        const config = {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+        const result = await axios.post(
+          'https://pol.aisoftwares.co.in/save-user',
+          data,
+          config,
+        );
 
-      if (password !== confirmPassword) {
-        Toast.show({
-          topOffset: moderateScale(100),
-          type: 'error',
-          text1: 'Error',
-          text2: "password didn't matched please enter correct password",
-          visibilityTime: 1000,
-        });
-      }
+        if (password !== confirmPassword) {
+          Toast.show({
+            topOffset: moderateScale(100),
+            type: 'error',
+            text1: 'Error',
+            text2: "password didn't matched please enter correct password",
+            visibilityTime: 1000,
+          });
+        }
 
-      if (result.data.success === 'true') {
-        Toast.show({
-          topOffset: moderateScale(100),
-          type: 'success',
-          text1: 'User created successfully',
-          text2: 'Please login',
-          visibilityTime: 300,
-        });
-        navigation.navigate('Login');
+        if (result.data.success === 'true') {
+          Toast.show({
+            topOffset: moderateScale(100),
+            type: 'success',
+            text1: 'User created successfully',
+            text2: 'Please login',
+            visibilityTime: 300,
+          });
+          navigation.navigate('Login');
+        } else {
+          Toast.show({
+            topOffset: moderateScale(100),
+            type: 'error',
+            text1: 'User already exists with this email',
+            text2: 'Please login instead',
+            visibilityTime: 300,
+          });
+        }
       } else {
         Toast.show({
           topOffset: moderateScale(100),
           type: 'error',
-          text1: 'User already exists with this email',
-          text2: 'Please login instead',
-          visibilityTime: 300,
+          text1: 'Invalid email',
+          text2: 'Please enter a valid email',
+          visibilityTime: 1000,
         });
       }
     } catch (error) {

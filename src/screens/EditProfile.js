@@ -1,12 +1,11 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {
-  View,
   Text,
   StyleSheet,
   Image,
   ScrollView,
-  Button,
   Pressable,
+  PermissionsAndroid,
 } from 'react-native';
 import {
   ButtonComponent,
@@ -17,18 +16,14 @@ import {
   ModalComponent,
   KeyBoardAvoidingViewComponent,
 } from '../components';
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Entypo from 'react-native-vector-icons/Entypo';
-import Feather from 'react-native-vector-icons/Feather';
-import {images, theme} from '../constants';
+import {theme} from '../constants';
 import {moderateScale} from 'react-native-size-matters';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import axios from 'axios';
 import {launchImageLibrary, launchCamera} from 'react-native-image-picker';
 import {getUserId} from '../shared/LocalStorage';
-import BottomSheet from 'reanimated-bottom-sheet';
-import Animated from 'react-native-reanimated';
 import DropDownPicker from 'react-native-dropdown-picker';
 
 const EditProfile = ({navigation}) => {
@@ -46,10 +41,8 @@ const EditProfile = ({navigation}) => {
 
   const [openSubCategory, setOpenSubCategory] = useState(false);
   const [subCategories, setSubCategories] = useState([]);
+  const [mainSubCategories, setMainSubCategories] = useState([]);
   const [selectedSubCategory, setSelectedSubCategory] = useState(null);
-
-  // const sheetRef = useRef(null);
-  // const animatedValue = new Animated.Value(1);
 
   const nameInputHandler = inputText => {
     setUserName(inputText);
@@ -92,11 +85,11 @@ const EditProfile = ({navigation}) => {
     }
   };
 
-  const openCamera = () => {
+  const launchDeviceCamer = () => {
     launchCamera(
       {
         mediaType: 'photo',
-        quality: 1,
+        quality: 0.5,
       },
       res => {
         if (res.didCancel) {
@@ -109,6 +102,35 @@ const EditProfile = ({navigation}) => {
         }
       },
     );
+  };
+
+  const openCamera = async () => {
+    try {
+      const result = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.CAMERA,
+      );
+      if (result === false) {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.CAMERA,
+          {
+            title: 'Plenty Of Labor',
+            message: 'Plenty Of Labor wants to access to your Camera',
+            buttonPositive: 'Allow',
+            buttonNegative: 'Deny',
+            buttonNeutral: 'Ask Later',
+          },
+        );
+        if (granted === 'granted') {
+          launchDeviceCamer();
+        } else {
+          alert('Camera permission denied');
+        }
+      } else {
+        launchDeviceCamer();
+      }
+    } catch (err) {
+      console.warn(err);
+    }
   };
 
   const openGallery = () => {
@@ -131,14 +153,59 @@ const EditProfile = ({navigation}) => {
     );
   };
 
+  const submitCategories = () => {
+    const combinedCategories = `${selectedSubCategory}, ${selectedCategory}`;
+    setUserExperience(combinedCategories);
+    setVisibleExperienceModal(false);
+  };
+
+  const getCategories = async () => {
+    const result = await axios.get(
+      'https://pol.aisoftwares.co.in/get-categories',
+    );
+    const getCategory = result.data.categories.map(cat => {
+      const item = {
+        label: cat.category_name,
+        value: cat.category_name,
+      };
+      return item;
+    });
+    setCategories(getCategory);
+    setmainCategories(result.data.categories);
+  };
+
+  const getSubCategories = async data => {
+    const categoryId = mainCategories
+      .filter(res => res.category_name === data)
+      .map(obj => obj.id);
+
+    const result = await axios.get(
+      `https://pol.aisoftwares.co.in/get-sub-categories?cat_id=${categoryId}`,
+    );
+    const getSubCategory = result.data.categories.map(cat => {
+      const item = {
+        label: cat.category_name,
+        value: cat.category_name,
+      };
+      return item;
+    });
+    setSubCategories(getSubCategory);
+    setMainSubCategories(result.data.categories);
+  };
+
   const saveProfileData = async () => {
     const userId = (await getUserId()).toString();
+
+    const categoryId = mainSubCategories
+      .filter(res => res.category_name === selectedSubCategory)
+      .map(obj => obj.id);
 
     let formData = new FormData();
     formData.append('user_id', userId);
     formData.append('name', userName);
     formData.append('phone_number', userPhoneNumber);
     formData.append('age', userAge);
+    formData.append('sub_category_id', categoryId[0]);
     formData.append('user_image', {
       uri: userImage,
       name: userName,
@@ -266,12 +333,6 @@ const EditProfile = ({navigation}) => {
     );
   };
 
-  const submitCategories = () => {
-    const combinedCategories = `${selectedSubCategory}, ${selectedCategory}`;
-    setUserExperience(combinedCategories);
-    setVisibleExperienceModal(false);
-  };
-
   const renderData = () => {
     return (
       <Container
@@ -393,21 +454,6 @@ const EditProfile = ({navigation}) => {
     );
   };
 
-  const getCategories = async () => {
-    const result = await axios.get(
-      'https://pol.aisoftwares.co.in/get-categories',
-    );
-    const getCategory = result.data.categories.map(cat => {
-      const item = {
-        label: cat.category_name,
-        value: cat.category_name,
-      };
-      return item;
-    });
-    setCategories(getCategory);
-    setmainCategories(result.data.categories);
-  };
-
   const renderCategories = () => {
     return (
       <Container
@@ -431,24 +477,6 @@ const EditProfile = ({navigation}) => {
         />
       </Container>
     );
-  };
-
-  const getSubCategories = async data => {
-    const categoryId = mainCategories
-      .filter(res => res.category_name === data)
-      .map(obj => obj.id);
-
-    const result = await axios.get(
-      `https://pol.aisoftwares.co.in/get-sub-categories?cat_id=${categoryId}`,
-    );
-    const getSubCategory = result.data.categories.map(cat => {
-      const item = {
-        label: cat.category_name,
-        value: cat.category_name,
-      };
-      return item;
-    });
-    setSubCategories(getSubCategory);
   };
 
   const renderSubCategories = () => {

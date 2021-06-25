@@ -18,8 +18,8 @@ const Start = ({navigation}) => {
         <Image
           source={images.logo}
           style={{
-            width: theme.Sizes.width / 1.7,
-            height: theme.Sizes.height / 2.8,
+            width: theme.Sizes.S14 * 15,
+            height: theme.Sizes.S14 * 15,
           }}
         />
       </Container>

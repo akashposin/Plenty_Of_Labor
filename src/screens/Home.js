@@ -1,5 +1,5 @@
-import React from 'react';
-import {StyleSheet, StatusBar} from 'react-native';
+import React, {useEffect} from 'react';
+import {StyleSheet, StatusBar, PermissionsAndroid} from 'react-native';
 import {theme} from '../constants';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {HeaderComponent, Map} from '../components';
@@ -26,6 +26,37 @@ const Home = ({navigation}) => {
     return (
       <AutoCompleteSearch onPress={() => navigation.navigate('Categories')} />
     );
+  };
+
+  useEffect(() => {
+    requestLocationPermission();
+  }, []);
+
+  const requestLocationPermission = async () => {
+    try {
+      const result = await PermissionsAndroid.check(
+        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      );
+      if (result === false) {
+        const granted = await PermissionsAndroid.request(
+          PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+          {
+            title: 'Plenty Of Labor',
+            message: 'Plenty Of Labor wants to access to your location',
+            buttonPositive: 'Allow',
+            buttonNegative: 'Deny',
+            buttonNeutral: 'Ask Later',
+          },
+        );
+        if (granted === 'granted') {
+          // alert('Location access granted');
+        } else {
+          alert('Location permission denied');
+        }
+      }
+    } catch (err) {
+      console.warn(err);
+    }
   };
 
   const onUserLocationUpdate = position => {
