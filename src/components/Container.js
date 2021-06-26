@@ -20,11 +20,7 @@ const Container = props => {
     color && !styles[color] && {backgroundColor: color},
     style,
   ];
-  return (
-    <View style={containerStyles} {...props.props}>
-      {props.children}
-    </View>
-  );
+  return <View style={containerStyles}>{props.children}</View>;
 };
 
 const styles = StyleSheet.create({

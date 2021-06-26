@@ -36,7 +36,6 @@ const BookingLeaveAReview = () => {
             color={theme.Colors.white}
           />
         </ButtonComponent>
-
         <Text
           style={{
             ...theme.Fonts.fontSemiBold,

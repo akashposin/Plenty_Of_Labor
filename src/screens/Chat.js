@@ -1,10 +1,10 @@
 import React from 'react';
-import { Text, StyleSheet, ScrollView } from 'react-native';
-import { Container, HeaderComponent, TextInputComponent } from '../components';
-import { theme } from '../constants';
+import {Text, StyleSheet, ScrollView} from 'react-native';
+import {Container, HeaderComponent, TextInputComponent} from '../components';
+import {theme} from '../constants';
 import IonIcons from 'react-native-vector-icons/Ionicons';
-import { moderateScale } from 'react-native-size-matters';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {moderateScale} from 'react-native-size-matters';
+import {SafeAreaView} from 'react-native-safe-area-context';
 
 const Chat = () => {
   const [text, setText] = React.useState('');
@@ -18,8 +18,7 @@ const Chat = () => {
             ...theme.Fonts.fontSemiBold,
             fontSize: theme.Sizes.F14,
             color: theme.Colors.white,
-          }}
-        >
+          }}>
           Bill Smith #1025
         </Text>
       </HeaderComponent>
@@ -31,9 +30,9 @@ const Chat = () => {
     return (
       <Container>
         {/* Chat One */}
-        <Container style={{ marginHorizontal: theme.Sizes.S14 * 2 }}>
+        <Container style={{marginHorizontal: theme.Sizes.S14 * 2}}>
           <Container
-            color='gray2'
+            color="gray2"
             middle
             style={{
               marginRight: theme.Sizes.S14 * 6,
@@ -41,26 +40,22 @@ const Chat = () => {
               height: theme.Sizes.height / 12,
               borderRadius: theme.Sizes.radius,
               borderBottomLeftRadius: 0,
-            }}
-          >
+            }}>
             <Text
               style={{
                 ...theme.Fonts.fontRegular,
                 marginHorizontal: theme.Sizes.S14 * 1.5,
                 color: theme.Colors.black2,
-              }}
-            >
+              }}>
               Coming to clean carpet
             </Text>
           </Container>
           <Container
             style={{
               marginTop: theme.Sizes.S10,
-            }}
-          >
+            }}>
             <Text
-              style={{ ...theme.Fonts.fontRegular, color: theme.Colors.black2 }}
-            >
+              style={{...theme.Fonts.fontRegular, color: theme.Colors.black2}}>
               18:11
             </Text>
           </Container>
@@ -71,10 +66,9 @@ const Chat = () => {
           style={{
             marginHorizontal: theme.Sizes.S14 * 2,
             alignItems: 'flex-end',
-          }}
-        >
+          }}>
           <Container
-            color='blue2'
+            color="blue2"
             middle
             style={{
               marginLeft: theme.Sizes.S14 * 2,
@@ -82,15 +76,13 @@ const Chat = () => {
               height: theme.Sizes.height / 12,
               borderRadius: theme.Sizes.radius,
               borderBottomRightRadius: 0,
-            }}
-          >
+            }}>
             <Text
               style={{
                 ...theme.Fonts.fontRegular,
                 marginHorizontal: theme.Sizes.S14 * 2,
                 color: theme.Colors.white,
-              }}
-            >
+              }}>
               the printing and typesetting industry It is a long established
               fact that
             </Text>
@@ -98,20 +90,18 @@ const Chat = () => {
           <Container
             style={{
               marginTop: theme.Sizes.S10,
-            }}
-          >
+            }}>
             <Text
-              style={{ ...theme.Fonts.fontRegular, color: theme.Colors.black2 }}
-            >
+              style={{...theme.Fonts.fontRegular, color: theme.Colors.black2}}>
               18:11
             </Text>
           </Container>
         </Container>
 
         {/* Chat Three */}
-        <Container style={{ marginHorizontal: theme.Sizes.S14 * 2 }}>
+        <Container style={{marginHorizontal: theme.Sizes.S14 * 2}}>
           <Container
-            color='gray2'
+            color="gray2"
             middle
             style={{
               width: theme.Sizes.width / 6,
@@ -119,26 +109,22 @@ const Chat = () => {
               height: theme.Sizes.height / 12,
               borderRadius: theme.Sizes.radius,
               borderBottomLeftRadius: 0,
-            }}
-          >
+            }}>
             <Text
               style={{
                 ...theme.Fonts.fontRegular,
                 marginHorizontal: theme.Sizes.S14 * 1.5,
                 color: theme.Colors.black2,
-              }}
-            >
+              }}>
               Yes
             </Text>
           </Container>
           <Container
             style={{
               marginTop: theme.Sizes.S10,
-            }}
-          >
+            }}>
             <Text
-              style={{ ...theme.Fonts.fontRegular, color: theme.Colors.black2 }}
-            >
+              style={{...theme.Fonts.fontRegular, color: theme.Colors.black2}}>
               18:12
             </Text>
           </Container>
@@ -149,10 +135,9 @@ const Chat = () => {
           style={{
             marginHorizontal: theme.Sizes.S14 * 2,
             alignItems: 'flex-end',
-          }}
-        >
+          }}>
           <Container
-            color='blue2'
+            color="blue2"
             middle
             style={{
               width: theme.Sizes.width / 5,
@@ -160,26 +145,22 @@ const Chat = () => {
               height: theme.Sizes.height / 12,
               borderRadius: theme.Sizes.radius,
               borderBottomRightRadius: 0,
-            }}
-          >
+            }}>
             <Text
               style={{
                 ...theme.Fonts.fontRegular,
                 marginHorizontal: theme.Sizes.S14 * 2,
                 color: theme.Colors.white,
-              }}
-            >
+              }}>
               Ok
             </Text>
           </Container>
           <Container
             style={{
               marginTop: theme.Sizes.S10,
-            }}
-          >
+            }}>
             <Text
-              style={{ ...theme.Fonts.fontRegular, color: theme.Colors.black2 }}
-            >
+              style={{...theme.Fonts.fontRegular, color: theme.Colors.black2}}>
               18:13
             </Text>
           </Container>
@@ -194,14 +175,13 @@ const Chat = () => {
       <Container
         flex={false}
         middle
-        color='gray2'
+        color="gray2"
         style={{
           height: theme.Sizes.height / 12,
-        }}
-      >
+        }}>
         <Container
           flex={false}
-          color='white'
+          color="white"
           row
           middle
           center
@@ -209,8 +189,7 @@ const Chat = () => {
             borderRadius: theme.Sizes.radius,
             marginHorizontal: theme.Sizes.S10 * 3,
             borderWidth: moderateScale(0.8),
-          }}
-        >
+          }}>
           <TextInputComponent
             style={{
               borderWidth: 0,
@@ -219,13 +198,13 @@ const Chat = () => {
             }}
             multiline
             placeholderTextColor={theme.Colors.gray}
-            placeholder='Type your message here...'
+            placeholder="Type your message here..."
             value={text}
-            onChangeText={(value) => setText(value)}
+            onChangeText={value => setText(value)}
           />
           <Container flex={false}>
             <IonIcons
-              name='md-send'
+              name="md-send"
               size={moderateScale(24)}
               color={theme.Colors.blue}
             />

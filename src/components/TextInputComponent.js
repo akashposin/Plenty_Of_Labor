@@ -3,26 +3,26 @@ import {TextInput, StyleSheet} from 'react-native';
 import {moderateScale} from 'react-native-size-matters';
 import {theme} from '../constants';
 
-const TextInputComponent = props => {
-  const {
-    style,
-    refs,
-    onChangeText,
-    value,
-    keyboardType,
-    placeholder,
-    placeholderTextColor,
-    onSubmitEditing,
-    secureTextEntry,
-    editable,
-    autoCapitalize,
-  } = props;
-
+const TextInputComponent = ({
+  refs,
+  onChangeText,
+  value,
+  keyboardType,
+  placeholder,
+  placeholderTextColor,
+  onSubmitEditing,
+  secureTextEntry,
+  editable,
+  autoCapitalize,
+  style,
+  children,
+  multiline,
+}) => {
   const inputStyles = [styles.input, style];
 
   return (
     <TextInput
-      autoCapitalize={!autoCapitalize ? 'none' : autoCapitalize}
+      autoCapitalize={'none' || autoCapitalize}
       ref={refs}
       blurOnSubmit={false}
       style={inputStyles}
@@ -34,8 +34,9 @@ const TextInputComponent = props => {
       placeholder={placeholder}
       placeholderTextColor={placeholderTextColor}
       onSubmitEditing={onSubmitEditing}
-      secureTextEntry={secureTextEntry}>
-      {props.children}
+      secureTextEntry={secureTextEntry}
+      multiline={multiline}>
+      {children}
     </TextInput>
   );
 };
@@ -49,6 +50,7 @@ const styles = StyleSheet.create({
     marginVertical: theme.Sizes.S10,
     fontSize: theme.Sizes.F12,
     backgroundColor: theme.Colors.white,
+    paddingLeft: theme.Sizes.S10,
   },
 });
 

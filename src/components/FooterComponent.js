@@ -1,10 +1,10 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
 import ButtonComponent from './ButtonComponent';
-import { theme } from '../constants';
+import {theme} from '../constants';
 
-const FooterComponent = (props) => {
-  const { style } = props;
+const FooterComponent = props => {
+  const {style} = props;
 
   const buttonStyles = [styles.container, style];
 

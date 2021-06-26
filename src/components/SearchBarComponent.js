@@ -4,6 +4,7 @@ import {theme} from '../constants';
 import Container from './Container';
 import TextInputComponent from './TextInputComponent';
 import IonIcons from 'react-native-vector-icons/Ionicons';
+import {StyleSheet} from 'react-native';
 
 const SearchBarComponent = props => {
   return (
@@ -13,21 +14,11 @@ const SearchBarComponent = props => {
       row
       middle
       center
-      style={{
-        borderRadius: theme.Sizes.radius / 5,
-        height: theme.Sizes.height / 16,
-      }}>
+      style={styles.container}>
       <Container>
-        <TextInputComponent
-          style={{
-            borderWidth: 0,
-            backgroundColor: 'transparent',
-            paddingLeft: theme.Sizes.S14,
-          }}
-          {...props}
-        />
+        <TextInputComponent style={styles.inputText} {...props} />
       </Container>
-      <Container flex={false} style={{marginRight: theme.Sizes.S10}}>
+      <Container flex={false} style={styles.iconContainer}>
         <IonIcons
           name="search"
           size={moderateScale(24)}
@@ -37,5 +28,19 @@ const SearchBarComponent = props => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    borderRadius: theme.Sizes.radius / 5,
+    height: theme.Sizes.height / 16,
+  },
+  inputText: {
+    borderWidth: 0,
+    backgroundColor: 'transparent',
+  },
+  iconContainer: {
+    marginRight: theme.Sizes.S10,
+  },
+});
 
 export default SearchBarComponent;

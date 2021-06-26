@@ -64,7 +64,7 @@ const Login = ({navigation}) => {
   const loginUser = async () => {
     try {
       const data = {email: email, password: password};
-      if (isEmail(data.email)) {
+      if (isEmail(email)) {
         const config = {
           headers: {
             'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const Login = ({navigation}) => {
           });
           const user_id = result.data.user_data.id;
           storeUserId(JSON.stringify(user_id));
-          navigation.navigate('Home');
+          navigation.replace('Home');
         } else {
           Toast.show({
             topOffset: moderateScale(60),
@@ -142,12 +142,13 @@ const Login = ({navigation}) => {
         flex={false}
         row
         center
-        middle
-        style={{marginTop: theme.Sizes.S14}}>
+        style={{
+          marginTop: theme.Sizes.S14,
+          marginHorizontal: theme.Sizes.S14 * 5,
+        }}>
         <ButtonComponent
           style={{
             backgroundColor: theme.Colors.white,
-            marginRight: theme.Sizes.S14 * 3,
           }}
           onPress={() => navigation.navigate('Register')}>
           <Text
@@ -160,6 +161,8 @@ const Login = ({navigation}) => {
             Register
           </Text>
         </ButtonComponent>
+
+        <Container />
         <ButtonComponent
           style={{backgroundColor: theme.Colors.white}}
           onPress={() => navigation.navigate('ForgotPassword')}>

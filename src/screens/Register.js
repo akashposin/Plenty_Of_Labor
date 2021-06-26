@@ -81,7 +81,25 @@ const Register = ({route, navigation}) => {
   const registerUser = async () => {
     try {
       const data = {email: email, password: password};
-      if (isEmail(data.email)) {
+      if (isEmail(email)) {
+        if (password.trim().length === 0) {
+          Toast.show({
+            topOffset: moderateScale(100),
+            type: 'error',
+            text1: 'Please enter a valid password',
+            text2: 'Hint: password can not contain empty spaces',
+            visibilityTime: 1000,
+          });
+        }
+        if (password !== confirmPassword) {
+          Toast.show({
+            topOffset: moderateScale(100),
+            type: 'error',
+            text1: 'Error',
+            text2: "password didn't matched please enter correct password",
+            visibilityTime: 1000,
+          });
+        }
         const config = {
           headers: {
             'Content-Type': 'application/json',
@@ -93,16 +111,6 @@ const Register = ({route, navigation}) => {
           config,
         );
 
-        if (password !== confirmPassword) {
-          Toast.show({
-            topOffset: moderateScale(100),
-            type: 'error',
-            text1: 'Error',
-            text2: "password didn't matched please enter correct password",
-            visibilityTime: 1000,
-          });
-        }
-
         if (result.data.success === 'true') {
           Toast.show({
             topOffset: moderateScale(100),
@@ -111,7 +119,7 @@ const Register = ({route, navigation}) => {
             text2: 'Please login',
             visibilityTime: 300,
           });
-          navigation.navigate('Login');
+          navigation.replace('Login');
         } else {
           Toast.show({
             topOffset: moderateScale(100),

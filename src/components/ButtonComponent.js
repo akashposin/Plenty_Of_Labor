@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   text: {
     ...theme.Fonts.fontBold,
-    fontSize: moderateScale(20),
+    fontSize: theme.Sizes.F18,
     color: theme.Colors.white,
     letterSpacing: 1.5,
     marginBottom: theme.Sizes.S10 / 2.5,

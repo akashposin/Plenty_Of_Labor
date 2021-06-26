@@ -34,7 +34,7 @@ const ModalComponent = ({visible, children, style}) => {
           style={[
             styles.modalContainer,
             {transform: [{scale: scaleValue}]},
-            {...style},
+            style,
           ]}>
           {children}
         </Animated.View>

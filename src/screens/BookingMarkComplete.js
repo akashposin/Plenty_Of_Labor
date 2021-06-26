@@ -35,31 +35,14 @@ const BookingMarkComplete = () => {
   const renderProfileData = () => {
     return (
       <Container center style={{marginTop: theme.Sizes.S14}}>
-        <Card
-          shadow
-          style={{
-            width: theme.Sizes.width / 1.12,
-            height: theme.Sizes.height / 5.5,
-            borderRadius: theme.Sizes.S10,
-            borderLeftWidth: theme.Sizes.S10,
-            borderColor: theme.Colors.orange,
-          }}>
+        <Card shadow style={styles.card}>
           <Container row>
             {/* Profile Image */}
-            <Container
-              center
-              middle
-              flex={false}
-              style={{
-                marginRight: theme.Sizes.S14,
-              }}>
+            <Container middle flex={false} style={styles.imageContainer}>
               <Image
                 source={images.profile}
                 resizeMode="contain"
-                style={{
-                  width: theme.Sizes.S14 * 6.7,
-                  height: theme.Sizes.S14 * 6.7,
-                }}
+                style={styles.image}
               />
             </Container>
 
@@ -67,52 +50,26 @@ const BookingMarkComplete = () => {
               {/* Name */}
               <Container flex={false} row>
                 <Container>
-                  <Text
-                    style={{
-                      ...theme.Fonts.fontBold,
-                      fontSize: theme.Sizes.F14,
-                    }}>
-                    Bill Smith
-                  </Text>
+                  <Text style={styles.nameText}>Bill Smith</Text>
                 </Container>
                 <Container
                   flex={false}
                   center
                   middle
-                  style={{
-                    backgroundColor: theme.Colors.green,
-                    borderRadius: theme.Sizes.radius / 10,
-                    width: theme.Sizes.S14 * 5,
-                    height: theme.Sizes.S14 * 1.1,
-                  }}>
-                  <Text
-                    style={{
-                      ...theme.Fonts.fontSemiBold,
-                      color: theme.Colors.white,
-                      fontSize: theme.Sizes.F10,
-                    }}>
-                    In Progress
-                  </Text>
+                  style={styles.inProgressLabel}>
+                  <Text style={styles.inProgressLabelText}>In Progress</Text>
                 </Container>
               </Container>
 
               {/* Address */}
               <Container>
-                <Text
-                  style={{
-                    ...theme.Fonts.fontSemiBold,
-                    color: theme.Colors.black,
-                    marginTop: theme.Sizes.S10 / 2,
-                    fontSize: theme.Sizes.F11,
-                  }}>
+                <Text style={styles.address}>
                   Mayfair, Saskatoon, SK S7L 1V6, Canada
                 </Text>
               </Container>
               {/* Date & Time */}
-              <Container row style={{marginTop: theme.Sizes.S10 / 2}}>
-                <Container
-                  flex={false}
-                  style={{marginRight: theme.Sizes.S10 / 2}}>
+              <Container row style={styles.dateTimeContainer}>
+                <Container flex={false} style={styles.calenderContainer}>
                   <AntDesign
                     name="calendar"
                     size={moderateScale(20)}
@@ -120,30 +77,12 @@ const BookingMarkComplete = () => {
                   />
                 </Container>
                 <Container>
-                  <Text
-                    style={{
-                      ...theme.Fonts.fontRegular,
-                      color: theme.Colors.black,
-                      fontSize: theme.Sizes.F11,
-                    }}>
-                    Monday, May 24, 2021
-                  </Text>
-                  <Text
-                    style={{
-                      ...theme.Fonts.fontRegular,
-                      color: theme.Colors.black,
-                      fontSize: theme.Sizes.F11,
-                    }}>
-                    02:30 PM
-                  </Text>
+                  <Text style={styles.dayMonthYear}>Monday, May 24, 2021</Text>
+                  <Text style={styles.time}>02:30 PM</Text>
                 </Container>
               </Container>
               {/* Arrow Icon */}
-              <Container
-                flex={false}
-                style={{
-                  alignSelf: 'flex-end',
-                }}>
+              <Container flex={false} style={styles.arrowIconContainer}>
                 <Entypo
                   name="chevron-with-circle-right"
                   size={moderateScale(22)}
@@ -328,14 +267,14 @@ const BookingMarkComplete = () => {
           <Feather
             name="check-circle"
             color={theme.Colors.white}
-            size={moderateScale(35)}
+            size={moderateScale(26)}
             style={{marginTop: theme.Sizes.S10 / 5}}
           />
           <Text
             style={{
               ...theme.Fonts.fontBold,
               color: theme.Colors.white,
-              fontSize: moderateScale(28),
+              fontSize: theme.Sizes.F18,
               marginHorizontal: theme.Sizes.S10,
             }}>
             Finish
@@ -363,6 +302,57 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: theme.Colors.white,
+  },
+  // Profile Card Styles
+  card: {
+    width: theme.Sizes.width / 1.12,
+    height: theme.Sizes.height / 5.5,
+    borderRadius: theme.Sizes.S10,
+    borderLeftWidth: theme.Sizes.S10,
+    borderColor: theme.Colors.orange,
+  },
+  imageContainer: {
+    marginRight: theme.Sizes.S14,
+  },
+  image: {
+    width: theme.Sizes.S14 * 6.7,
+    height: theme.Sizes.S14 * 6.7,
+  },
+  nameText: {
+    ...theme.Fonts.fontBold,
+    fontSize: theme.Sizes.F14,
+  },
+  inProgressLabel: {
+    backgroundColor: theme.Colors.green,
+    borderRadius: theme.Sizes.radius / 10,
+    width: theme.Sizes.S14 * 5,
+    height: theme.Sizes.S14 * 1.1,
+  },
+  inProgressLabelText: {
+    ...theme.Fonts.fontSemiBold,
+    color: theme.Colors.white,
+    fontSize: theme.Sizes.F10,
+  },
+  address: {
+    ...theme.Fonts.fontSemiBold,
+    color: theme.Colors.black,
+    marginTop: theme.Sizes.S10 / 2,
+    fontSize: theme.Sizes.F11,
+  },
+  dateTimeContainer: {marginTop: theme.Sizes.S10 / 2},
+  calenderContainer: {marginRight: theme.Sizes.S10 / 2},
+  dayMonthYear: {
+    ...theme.Fonts.fontRegular,
+    color: theme.Colors.black,
+    fontSize: theme.Sizes.F11,
+  },
+  time: {
+    ...theme.Fonts.fontRegular,
+    color: theme.Colors.black,
+    fontSize: theme.Sizes.F11,
+  },
+  arrowIconContainer: {
+    alignSelf: 'flex-end',
   },
 });
 

@@ -6,15 +6,15 @@ import {theme} from '../constants';
 import SearchBarComponent from './SearchBarComponent';
 import {moderateScale} from 'react-native-size-matters';
 
-const AutoCompleteSearch = props => {
+const AutoCompleteSearch = ({onPress}) => {
   const [mainData, setMainData] = useState([]);
 
   const searchCategory = async inputText => {
     try {
       const result = await axios.get(
-        `https://pol.aisoftwares.co.in/search-service-providers?keyword=${inputText}`,
+        `https://pol.aisoftwares.co.in/get-all-sub-categories?keyword=${inputText}`,
       );
-      const getData = result.data.data.map(value => value);
+      const getData = result.data.all_sub_categories.map(value => value);
       if (inputText) {
         setMainData(getData);
       } else {
@@ -41,11 +41,11 @@ const AutoCompleteSearch = props => {
       )}
       flatListProps={{
         keyboardShouldPersistTaps: 'always',
-        keyExtractor: item => item.user_id,
+        keyExtractor: item => item.sub_category_id,
         renderItem: ({item}) => {
           return (
-            <TouchableOpacity onPress={props.onPress}>
-              <Text style={styles.dropDownText}>{item.sub_cat_name}</Text>
+            <TouchableOpacity onPress={onPress}>
+              <Text style={styles.dropDownText}>{item.sub_category_name}</Text>
             </TouchableOpacity>
           );
         },

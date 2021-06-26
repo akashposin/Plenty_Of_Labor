@@ -13,7 +13,7 @@ const HorizontalLine = props => {
       flex={false}
       style={hLineStyles}
       color={!color ? 'gray3' : color}
-      {...props.props}
+      {...props}
     />
   );
 };

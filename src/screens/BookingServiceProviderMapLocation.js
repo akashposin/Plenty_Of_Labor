@@ -158,10 +158,8 @@ const BookingServiceProviderMapLocation = () => {
   return (
     <SafeAreaView style={styles.container}>
       {renderHeader()}
-      <ScrollView>
-        {renderMap()}
-        {renderProfileData()}
-      </ScrollView>
+      {renderMap()}
+      <ScrollView>{renderProfileData()}</ScrollView>
       {renderBottomButton()}
     </SafeAreaView>
   );
