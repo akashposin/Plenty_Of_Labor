@@ -29,7 +29,7 @@ import VerifyOTP21 from "../screens/VerifyOTP21";
 import ServiceProviderDashboardToday from "../screens/ServiceProviderDashboardToday";
 import ServiceProviderListOfReviews from "../screens/ServiceProviderListOfReviews";
 import CustomerProfile from "../screens/CustomerProfile";
-import Constants from "../components/styles/Constants";
+import Constants from "../navigation/Constants";
 
 
 const Stack = createStackNavigator();

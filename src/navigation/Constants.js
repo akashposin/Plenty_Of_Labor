@@ -5,13 +5,6 @@ export default {
   // App settings
   VERSION: "Version 1.0",
 
-  // Staging
-  // BASE_URL: "https://google.com/",
-
-  // Production
-  // BASE_URL: "https://google.com/",
-
-
   //Screen Name
   LOGIN: "Login",
   HOME: "Home",
