@@ -57,7 +57,7 @@ const AutoCompleteSearch = ({onPress}) => {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: theme.Sizes.S14 * 2,
-    top: moderateScale(45),
+    top: moderateScale(58),
     position: 'absolute',
     zIndex: 1,
     width: theme.Sizes.width / 1.17,

@@ -11,6 +11,9 @@ target 'plentyoflabor' do
     # to enable hermes on iOS, change `false` to `true` and then install pods
     :hermes_enabled => false
   )
+  pre_install do |installer|
+    $RNMBGL.pre_install(installer)
+  end
 
   target 'plentyoflaborTests' do
     inherit! :complete
@@ -23,7 +26,9 @@ target 'plentyoflabor' do
   # you should disable the next line.
   use_flipper!()
 
+
   post_install do |installer|
+   $RNMBGL.post_install(installer)
     react_native_post_install(installer)
   end
 end

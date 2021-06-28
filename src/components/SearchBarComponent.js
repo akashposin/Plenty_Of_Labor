@@ -19,9 +19,9 @@ const SearchBarComponent = props => {
         <TextInputComponent style={styles.inputText} {...props} />
       </Container>
       <Container flex={false} style={styles.iconContainer}>
-        <IonIcons
-          name="search"
-          size={moderateScale(24)}
+          <IonIcons
+              name="search"
+              size={moderateScale(16)}
           color={theme.Colors.gray}
         />
       </Container>
@@ -31,15 +31,16 @@ const SearchBarComponent = props => {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: theme.Sizes.radius / 5,
-    height: theme.Sizes.height / 16,
+  borderRadius: 32,
+      height: 40,
+      paddingStart: 8,
   },
   inputText: {
     borderWidth: 0,
     backgroundColor: 'transparent',
   },
   iconContainer: {
-    marginRight: theme.Sizes.S10,
+    marginRight: 16,
   },
 });
 

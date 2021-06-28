@@ -230,11 +230,19 @@ const EditProfile = ({navigation}) => {
   const renderHeader = () => {
     return (
       <HeaderComponent row center middle>
+
+          <Container
+              flex={false}
+              style={{
+                  overflow: 'hidden',
+                  marginHorizontal: theme.Sizes.S10,
+                  borderRadius: theme.Sizes.radius / 7,
+              }}/>
         <Container center>
           <Text
             style={{
-              ...theme.Fonts.fontSemiBold,
-              fontSize: theme.Sizes.F14,
+              ...theme.Fonts.fontBold,
+              fontSize: theme.Sizes.F16,
               color: theme.Colors.white,
             }}>
             Edit Profile
@@ -342,7 +350,9 @@ const EditProfile = ({navigation}) => {
           marginBottom: theme.Sizes.S14,
         }}>
         {/* Name */}
-        <Container flex={false}>
+          <Container style={{
+              marginBottom: 16
+          }} flex={false}>
           <Text
             style={{
               ...theme.Fonts.fontSemiBold,
@@ -366,7 +376,9 @@ const EditProfile = ({navigation}) => {
         </Container>
 
         {/* Phone Number */}
-        <Container flex={false}>
+          <Container style={{
+              marginBottom: 16
+          }} flex={false}>
           <Text
             style={{
               ...theme.Fonts.fontSemiBold,
@@ -390,7 +402,9 @@ const EditProfile = ({navigation}) => {
         </Container>
 
         {/* Age */}
-        <Container flex={false}>
+          <Container style={{
+              marginBottom: 16
+          }} flex={false}>
           <Text
             style={{
               ...theme.Fonts.fontSemiBold,
@@ -414,7 +428,9 @@ const EditProfile = ({navigation}) => {
         </Container>
 
         {/* Experience */}
-        <Container flex={false}>
+          <Container style={{
+              marginBottom: 16
+          }} flex={false}>
           <Text
             style={{
               ...theme.Fonts.fontSemiBold,

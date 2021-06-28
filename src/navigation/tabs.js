@@ -47,9 +47,10 @@ const Tabs = () => {
           marginTop: -theme.Sizes.S14,
         },
         style: {
-          height: theme.Sizes.height / 12,
-          borderTopRightRadius: theme.Sizes.radius / 1.5,
-          borderTopLeftRadius: theme.Sizes.radius / 1.5,
+            height: 100,
+            borderTopRightRadius: 28,
+            borderTopLeftRadius: 28,
+            shadowOpacity: 0.1,
           paddingHorizontal: theme.Sizes.S14,
           backgroundColor: theme.Colors.white,
         },

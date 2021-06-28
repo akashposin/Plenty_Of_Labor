@@ -44,10 +44,9 @@ const TextInputComponent = ({
 const styles = StyleSheet.create({
   input: {
     ...theme.Fonts.fontRegular,
-    height: theme.Sizes.S14 * 3,
+    height: 48,
     borderWidth: moderateScale(1),
     borderColor: theme.Colors.black,
-    marginVertical: theme.Sizes.S10,
     fontSize: theme.Sizes.F12,
     backgroundColor: theme.Colors.white,
     paddingLeft: theme.Sizes.S10,
